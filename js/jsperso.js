@@ -17,11 +17,6 @@ $(function() {
 				afficheralerte('alert-danger','alert-success', 'Mot de passe valide');
 				alert("Validation réussie");
 			}
-			else
-			{
-				alert("Le mot de passe doit être compris entre 8 et 14 caractères");
-				afficheralerte('alert-danger','alert-success', 'Le mot de passe doit être compris entre 8 et 14 caractères');
-			}
 		}
 	});
 });
@@ -65,12 +60,13 @@ function Checkpassword(pass1, pass2)
 {
 	if($(pass1).val().length < 8 || $(pass1).val().length > 14)
 	{
+		alert("Le mot de passe doit être compris entre 8 et 14 caractères");
 		afficheralerte('alert-danger','alert-success', 'Le mot de passe doit être compris entre 8 et 14 caractères');
 		return false;
 	}
 	if($(pass1).val() != $(pass2).val())
 	{
-		alert("Les mots de passe qui sont entrés sont différents");	
+		alert("Les mots de passe qui sont entrés sont différents");
 		afficheralerte('alert-success','alert-danger', 'Les mots de passe qui sont entrés sont différents');
 		return false;
 	}
