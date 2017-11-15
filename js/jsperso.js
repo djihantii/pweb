@@ -1,20 +1,29 @@
 $(function() {
 	$('.resultat > button:nth-child(2)').on('click', function(){
 		alert("Vous avez refusé");
-		//$(this).parent().find('button').hide();
 		$(this).parent().text('Candidat refusé');
 	});
 	$('.resultat > button:nth-child(1)').on('click', function(){
 		alert("Vous avez accepté");
-	//	$(this).parent().find('button').hide();
 		$(this).parent().text('Candidat accepté');
 	});
 	$('.envoyer').on('click', function(){	
-		estVide('.estvide');
-		var passwordValid = Checkpassword('#pass','#pass2');
-		alert(passwordValid ? ok : pas ok);
+		var saisie = saisieok('.saisievide');
+		if(saisie == true)
+		{
+			var passwordValid = Checkpassword('#pass','#pass2');
+			if(passwordValid == true)
+			{
+				afficheralerte('alert-danger','alert-success', 'Mot de passe valide');
+				alert("Validation réussie");
+			}
+			else
+			{
+				alert("Le mot de passe doit être compris entre 8 et 14 caractères");
+				afficheralerte('alert-danger','alert-success', 'Le mot de passe doit être compris entre 8 et 14 caractères');
+			}
+		}
 	});
-	$(".loader").fadeOut("1000");
 });
 
 const ERRORS = {
@@ -23,27 +32,46 @@ const ERRORS = {
 };
 
 
-function estVide(elt)
+function afficheralerte(classadd,classdelete, text)
 {
-	elt.each(function()
+	$($('.alert')).removeClass(classdelete);
+	$($('.alert')).removeClass('hidden');
+	$($('.alert')).addClass(classadd);
+	$($('.alert')).text(text);
+}
+
+function saisieok(elt)
+{
+	var etat = true;
+	$(elt).each(function()
 	{
+		$(this).parent().removeClass('has-error');
+		$(this).parent().removeClass('has-success');
 		if($(this).val() == ""){
-			alert('Un ou plusieurs des champs sont à remplir');
-			return;
+			if(etat == true)
+			{
+				alert("Un des champs de saisie sont vides");
+				afficheralerte('alert-danger','alert-success', 'Un des champs de saisie sont vides');
+			}
+			$(this).parent().addClass('has-error');
+			etat = false;
 		}
+		$(this).parent().addClass('has-success');
 	});
+	return etat;
 }
 
 function Checkpassword(pass1, pass2)
 {
 	if($(pass1).val().length < 8 || $(pass1).val().length > 14)
 	{
-		alert('Le nombre de caractères doit être compris entre 8 et 14');
+		afficheralerte('alert-danger','alert-success', 'Le mot de passe doit être compris entre 8 et 14 caractères');
 		return false;
 	}
 	if($(pass1).val() != $(pass2).val())
 	{
-		alert('Les 2 mots de passe sont différents');
+		alert("Les mots de passe qui sont entrés sont différents");	
+		afficheralerte('alert-success','alert-danger', 'Les mots de passe qui sont entrés sont différents');
 		return false;
 	}
 	return true;

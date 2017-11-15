@@ -10,11 +10,11 @@
 	</head>
 
 	<body>
-		<div class="loader"></div>
 		<div class="header">
 			<ul>
-				<li><img src="logo.png" alt="Notre Logo" style="width:50px ; height: 65px;"></li>
+				<li><img src="css/logo.png" class="logo"></li>
 				<li><h1>SearchEmploi</h1></li>
+		
 			</ul>
 		</div>
 		<nav class="menu">
@@ -28,11 +28,11 @@
 
 			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Se connecter</button>
 
-			<!-- Modal -->
+			<!-- Classe Modal -->
 			<div class="modal fade" id="myModal" role="dialog">
 				<div class="modal-dialog">
 
-					<!-- Modal content-->
+					<!-- Classe Modal content-->
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -43,27 +43,26 @@
 							<!-- Pour se connecter--> 
 
 							<form class="form-signin">
-								<h2 class="form-signin-heading">Please sign in</h2>
-								<label for="inputEmail" class="sr-only">Email address</label>
+								<h2 class="form-signin-heading">Se connecter</h2>
+								<label for="inputEmail" class="sr-only">Login ou Adresse E-mail</label>
 								<input type="text" id="inputEmail" class="form-control" placeholder="E-mail" required="" autofocus="">
-								<label for="inputPassword" class="sr-only">Password</label>
+								<label for="inputPassword" class="sr-only">Mot de passe</label>
 								<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
 								<div class="checkbox">
 				  					<label>
-										<input type="checkbox" value="remember-me"> Remember me
+										<input type="checkbox" value="remember-me">Me souvenir
 				  					</label>
 								</div>
-								<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+								<button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
 		  		 			</form>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 						</div>
 					</div>
 
 				</div>
 			</div>
-
 		</nav>
 
 		<h2 class="center">Accepter ou refuser le candidat sur un poste</h2>
