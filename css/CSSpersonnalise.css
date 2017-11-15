@@ -1,0 +1,258 @@
+/*!
+ * Bootstrap v4.0.0-beta (https://getbootstrap.com)
+ * Copyright 2011-2017 The Bootstrap Authors
+ * Copyright 2011-2017 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+body
+{
+  background-color: #E1E3F3;
+}
+
+
+h1, h2, h3 {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  text-align:center;
+}
+
+table {
+  border-collapse: collapse;
+  margin: auto;
+}
+
+th {
+  text-align: left;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: .5rem;
+}
+textarea {
+  width:100%;
+  font-size: 16px;
+  height: 100px;
+}
+
+.col {
+  -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+  -ms-flex-positive: 1;
+      flex-grow: 1;
+  max-width: 75%;
+  height:100;
+  margin-left:25%;
+}
+
+.col-3 {
+  -ms-flex: 0 0 25%;
+      flex: 0 0 25%;
+  max-width: 25%;
+  height:100%;
+  background-color: #f5f5f5;
+  position:absolute;
+  padding: 20px;
+  border-right: 3px solid  #66b3ff;
+}
+
+.table {
+  width: 95%;
+  max-width: 80%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #a9a9a9;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #a9a9a9;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #a9a9a9;
+  background-color:#EBECF2; 
+}
+
+.table-bordered {
+  border: 1px solid #e9ecef;
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #e9ecef;
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+  border-bottom-width: 2px;
+}
+
+.table {
+  border: 0.5px solid #0F1445;
+}
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+   border: 0.5px solid #0F1445;
+}
+
+.form-control {
+  display: block;
+  width: 400px;
+  height: auto;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  padding-left: 0px;
+  padding-left: 40px;
+  line-height: 1.25;
+  background-color: #f5f5f5;
+  background-image: none;
+  background-clip: padding-box;
+  
+}
+
+.form-control::-ms-expand {
+  background-color: transparent;
+  border: 0;
+}
+
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: none;
+}
+
+.form-control:disabled, .form-control[readonly] {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+input[type="submit"].btn-block,
+input[type="reset"].btn-block,
+input[type="button"].btn-block {
+  width: 100%;
+}
+
+.border {
+  border: 3px solid red;
+}
+
+.rounded {
+  border-radius: 1rem !important;
+}
+
+.menu{
+  padding: 0;
+  margin: 0;
+  background-color: #1e90ff;
+  width:100%;
+  border: 4px solid #66b3ff;
+}
+
+.menu a{
+  display: inline-block;
+  padding: 10px 30px;
+  text-align:center;
+  color: black;
+  text-decoration:none;
+}
+
+.menu a:hover{
+  background-color: #0000cd;
+  color: white;
+}
+
+input[type=text], input[type=password]{
+  box-sizing: border-box;
+  width:100%;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.search input[type=text] {
+  background-color: white;
+  background-image: url('searchicon.png');
+  background-size: 20px 20px;
+  background-position: 6px 8px; 
+  background-repeat: no-repeat;
+  padding: 6px 10px 6px 30px;
+}
+
+.header{
+  background-color: #B3DED8;
+  padding: 20px;
+  width:100%;
+  text-align: center;
+}
+
+.header ul li{
+  display : inline-block;
+}
+
+.active{
+  background-color:cyan;
+}
+
+.form-control label{
+  margin-top: 10px;
+  width:100%;
+}
+
+.resultat > button{
+  display: inline-block;
+  margin-left: 5%;
+  max-width:45%;
+}
+
+.loader {
+  position : fixed;
+  background : url('loader.gif') 50% 50% no-repeat;
+  top : 0px;
+  left : 0px;
+  height : 100%;
+  width : 100%;
+  cursor : wait;
+}
+
+@media screen and (max-width: 600px){
+  .menu a{
+    display: block;
+  }
+  .header{
+    width:600px;
+  }
+  .menu{
+    width:600px;
+  }
+  .col-3{
+    height: 25%;
+    min-width:615px;
+    position:relative;
+    border:0px;
+  }
+  .col{
+    min-width: 600px;
+    margin-left:15px;
+  }
+}
