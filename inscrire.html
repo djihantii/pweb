@@ -42,10 +42,10 @@
 
 							<form class="form-signin">
 								<h2 class="form-signin-heading">Se connecter</h2>
-								<label for="inputEmail" class="sr-only">Login ou Adresse E-mail</label>
-								<input type="text" id="inputEmail" class="form-control" placeholder="E-mail" required="" autofocus="">
-								<label for="inputPassword" class="sr-only">Mot de passe</label>
-								<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+								<label for="inputEmail">Login</label>
+								<input type="text" id="inputEmail" class="form-control" placeholder="Login" required="" autofocus="">
+								<label for="inputPassword">Mot de passe</label>
+								<input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required="">
 								<div class="checkbox">
 				  					<label>
 										<input type="checkbox" value="remember-me">Me souvenir
@@ -65,16 +65,20 @@
 		<form class="form-submit border rounded">
 			<div class="hidden alert"></div>
 			<h2>Inscription</h2>
-			<label for="nom">Nom: </label>
+			<div class="form-group has-feedback">
+				<label for="mail">Login:</label>
+				<input id="mail" class="form-control saisievide" type="text" placeholder="Login">
+			</div>
 			<div class="form-group has-feedback">	
+				<label for="nom">Nom: </label>
 				<input id="nom" class="form-control saisievide " type="text" placeholder="Nom">
 			</div>
-			<label for="prenom">Prénom: </label>
 			<div class="form-grouphas-feedback">
+				<label for="prenom">Prénom: </label>
 				<input id="prenom" class="form-control saisievide" type="text" placeholder="Prénom">
 			</div>
-			<label for="mail">E-mail:</label>
 			<div class="form-group has-feedback">
+				<label for="mail">E-mail:</label>
 				<input id="mail" class="form-control saisievide" type="text" placeholder="E-mail">
 			</div>
 			<label>Genre:</label>
@@ -83,12 +87,12 @@
 			F:
 			<input type="radio" name="genre" value="F">
 			</label>
-			<label for="pass">Mot de passe:</label>
 			<div class="form-group has-feedback">
+				<label for="pass">Mot de passe:</label>
 				<input id="pass" class="form-control saisievide" type="password">
 			</div>
-			<label for="pass2">Confirmer le mot de passe:</label>
 			<div class="form-group has-feedback">
+				<label for="pass2">Confirmer le mot de passe:</label>
 				<input id="pass2" class="form-control saisievide" type="password">
 			</div>
 			<button type="button" class="envoyer btn-block">Inscrire</button>
