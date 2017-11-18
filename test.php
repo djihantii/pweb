@@ -3,11 +3,7 @@
 	require('php/Connexion.class.php');
 	$con = new Connexion;
 	try{
-		$base = "BDE11404058" ;
-		$ide= "E11404058";
-		$password= "2407004604C";
 		$bd =new PDO($con::DNS, $con::USER, $con::PWD);
-		//$bd =new PDO('mysql:host=marseille;dbname=pweb;charset=utf8', 'INFO2_1', 'INFO2_1');
 		$bd->query('SET NAMES '+ $con::CHARSET);
 		$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$requete = $bd->prepare('SELECT * FROM OFFRES');

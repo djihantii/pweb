@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Blacklister un candidat</title>
+		<title>Rechercher les candidats par domaines d’expertise, années d’expérience</title>
         	<link rel="stylesheet" href="css/bootstrap.css" />
 		<link rel="stylesheet" href="css/CSSpersonnalise.css" />
 	</head>
@@ -20,12 +20,12 @@
 			<a href="RH_new_offre.html">Créer des offres</a>
 			<a href="RH_inscrire_collegue.html">Inscrire un collègue</a>
 			<a href="RH_inscrire.html">Inscrire un candidat</a>
-			<a href="RH_recherche_candidat.html">Rechercher les candidats</a>
+			<a href="RH_recherche_candidat.html" class="active">Rechercher les candidats</a>
 			<a href="RH_resultat.html">Accepter / refuser un candidat sur un poste</a>
-			<a href="RH_blacklister.html" class="active">Blacklister un candidat</a>
+			<a href="RH_blacklister.html">Blacklister un candidat</a>
 			<a href="RH_contact_candidat.html">Contacter un candidat</a>
 
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Se connecter</button>
+			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Se connecter</button>
 
 			<!-- Classe Modal -->
 			<div class="modal fade" id="myModal" role="dialog">
@@ -63,35 +63,67 @@
 				</div>
 			</div>
 		</nav>
-		<form class="form-submit border rounded">
-			<div class="hidden alert"></div>
-			<h2>Blacklister un candidat</h2>
-			<div class="form-group has-feedback">
-				<label for="nom">Nom: </label>	
-				<input id="nom" class="form-control saisievide" type="text" placeholder="Nom">
+		<div class="row">
+			<div class="col-3">
+				<form class="search">
+					<label for="recherche">Rechercher :</label>
+					<input id="recherche" type="text" placeholder="Recherche">
+					<button type="submit" class="btn-block">Rechercher</button>
+					<label>Trier par:</label>
+					<ul>
+						<label>Nom<input type="radio" name="tri"></label>
+						<label>Pertinence<input type="radio" name="tri"></label>
+						<label>Date<input type="radio" name="tri"></label>
+					</ul>
+				</form>
 			</div>
-			<div class="form-group has-feedback">
-				<label for="prenom">Prénom: </label>
-				<input id="prenom" class="form-control saisievide" type="text" placeholder="Prénom">
+			<div class="col">
+				<br>
+				<h2>Recherche</h2>
+				<br>
+				<table class="table table-bordered">
+					<thead class="jumbotron">
+						<tr>
+							<th>Nom</th>
+							<th>Prénom</th>
+							<th>Genre</th>
+							<th>E-mail</th>
+							<th>Diplôme</th>
+							<th>Consulter</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>YE</td>
+							<td>Quentin</td>
+							<td>M</td>
+							<td><a href=#>ye_quentin@yahoo.fr</a></td>
+							<td>Bac+3</td>
+							<td><a href= #>Consulter</td>
+						</tr>
+						<tr>
+							<td>Shal</td>
+							<td>Malcolm</td>
+							<td>M</td>
+							<td><a href=#>ye_quentin@yahoo.fr</a></td>
+							<td>Bac+4</td>
+							<td><a href= #>Consulter</td>
+						</tr>
+						<tr>
+							<td>Nim</td>
+							<td>Mu</td>
+							<td>F</td>
+							<td><a href=#>ye_quentin@yahoo.fr</a></td>
+							<td>Bac+5</td>
+							<td><a href= #>Consulter</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<div class="form-group has-feedback">
-				<label for="mail">E-mail:</label>
-				<input id="mail" class="form-control saisievide" type="text" placeholder="E-mail">
-			</div>
-			<div class="form-group has-feedback">
-				<label for="pass">Confirmer avec votre mot de passe:</label>
-				<input id="pass" class="form-control saisievide" type="password">
-			</div>
-			<div class="form-group has-feedback">
-				<label for="comment">Commentaire:</label>
-				<textarea id="comment" class="form-control saisievide" placeholder="Commentaire"></textarea>
-			</div>
-			<button type="button" class="envoyer btn-block">Inscrire</button>
-		</form>
+		</div>
 		<script src="https://code.jquery.com/jquery.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/jsperso.js" ></script>
 	</body>
 
 </html>
-

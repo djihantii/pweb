@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Blacklister un candidat</title>
+		<title>Créer des offres</title>
         	<link rel="stylesheet" href="css/bootstrap.css" />
 		<link rel="stylesheet" href="css/CSSpersonnalise.css" />
 	</head>
@@ -17,15 +17,15 @@
 		</div>
 		<nav class="menu">
 			<a href="index.html">Accueil</a>
-			<a href="RH_new_offre.html">Créer des offres</a>
+			<a href="RH_new_offre.html" class="active">Créer des offres</a>
 			<a href="RH_inscrire_collegue.html">Inscrire un collègue</a>
 			<a href="RH_inscrire.html">Inscrire un candidat</a>
 			<a href="RH_recherche_candidat.html">Rechercher les candidats</a>
 			<a href="RH_resultat.html">Accepter / refuser un candidat sur un poste</a>
-			<a href="RH_blacklister.html" class="active">Blacklister un candidat</a>
+			<a href="RH_blacklister.html">Blacklister un candidat</a>
 			<a href="RH_contact_candidat.html">Contacter un candidat</a>
 
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Se connecter</button>
+			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Se connecter</button>
 
 			<!-- Classe Modal -->
 			<div class="modal fade" id="myModal" role="dialog">
@@ -65,28 +65,28 @@
 		</nav>
 		<form class="form-submit border rounded">
 			<div class="hidden alert"></div>
-			<h2>Blacklister un candidat</h2>
+			<h2>Création d'offre</h2>
 			<div class="form-group has-feedback">
-				<label for="nom">Nom: </label>	
-				<input id="nom" class="form-control saisievide" type="text" placeholder="Nom">
+				<label for="nom">Nom du poste: </label>	
+				<input id="nom" class="form-control saisievide" type="text" placeholder="Nom du poste">
 			</div>
 			<div class="form-group has-feedback">
-				<label for="prenom">Prénom: </label>
-				<input id="prenom" class="form-control saisievide" type="text" placeholder="Prénom">
+				<label for="lieu">Lieu du travail:</label>
+				<input id="lieu" class="form-control saisievide" type="text" placeholder="Lieu du travail">
 			</div>
 			<div class="form-group has-feedback">
-				<label for="mail">E-mail:</label>
-				<input id="mail" class="form-control saisievide" type="text" placeholder="E-mail">
+				<label for="type">Type d'emploi:</label>
+				<input id="type" class="form-control saisievide" type="text" placeholder="Type d'emploi">
 			</div>
 			<div class="form-group has-feedback">
-				<label for="pass">Confirmer avec votre mot de passe:</label>
-				<input id="pass" class="form-control saisievide" type="password">
+				<label for="diplome">Diplômes requis:</label>
+				<input id="diplome" class="form-control saisievide" type="text" placeholder="Diplôme">
 			</div>
 			<div class="form-group has-feedback">
-				<label for="comment">Commentaire:</label>
-				<textarea id="comment" class="form-control saisievide" placeholder="Commentaire"></textarea>
+				<label for="describe">Mission et Description:</label>
+				<textarea id="describe" class="form-control saisievide" placeholder="Description"></textarea>
 			</div>
-			<button type="button" class="envoyer btn-block">Inscrire</button>
+			<button type="button" class="envoyer btn-block">Créer l'offre</button>
 		</form>
 		<script src="https://code.jquery.com/jquery.min.js"></script>
 		<script src="js/bootstrap.js"></script>
@@ -94,4 +94,3 @@
 	</body>
 
 </html>
-
