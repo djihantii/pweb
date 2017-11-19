@@ -1,6 +1,12 @@
 <?php
 	include('php/Connexion.class.php');
-
+	session_start();
+	if(isset ($_POST['disconnected'])) {
+		session_destroy();
+		$_SESSION['Login'] = "";
+	}
+	$con = new Connexion;
+	$bd = $con->init();
 	echo '
 	<!DOCTYPE html>
 	<html>
@@ -24,13 +30,15 @@
 				<a href="Candidat_profil.php">Modifier le profil</a>
 				<a href="Candidat_postuler.php" class="active">Postuler à une offre</a>
 				<a href="Candidat_resultat.php">Consulter les réponses</a>
-				<a href="contact.php">Contacter les RH</a>
+				<a href="contact.php">Contacter les RH</a>';
 
-
-			</nav>
+			if( isset ($_SESSION['Login'])) {
+					echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a>';
+			}
+			echo'</nav>
 			<div class="row">
 				<div class="col-3">
-					<form class="search">
+					<form class="search" action="Candidat_postuler.php" method="post">
 						<label for="recherche">Rechercher :</label>
 						<input id="recherche" type="text" placeholder="Recherche">
 						<button type="submit" class="btn-block">Rechercher</button>
