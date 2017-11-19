@@ -19,6 +19,8 @@ $(function() {
 			}
 		}
 	});
+	$('.rh').hide();
+	$('.candidat').hide();
 });
 
 const ERRORS = {
@@ -29,10 +31,10 @@ const ERRORS = {
 
 function afficheralerte(classadd,classdelete, text)
 {
-	$($('.alert')).removeClass(classdelete);
-	$($('.alert')).removeClass('hidden');
-	$($('.alert')).addClass(classadd);
-	$($('.alert')).text(text);
+	$('.alert').removeClass(classdelete);
+	$('.alert').removeClass('hidden');
+	$('.alert').addClass(classadd);
+	$('.alert').text(text);
 }
 
 function saisieok(elt)

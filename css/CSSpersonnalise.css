@@ -167,11 +167,11 @@ input[type=text], input[type=password]{
 }
 
 .rh{
-  display: none !important;
+  display: none;
 }
 
 .candidat{
-  display: none !important;
+  display: none;
 }
 
 
