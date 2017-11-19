@@ -19,8 +19,7 @@ $(function() {
 			}
 		}
 	});
-	$('.rh').hide();
-	$('.candidat').hide();
+	menu_visiteur();
 });
 
 const ERRORS = {
@@ -28,6 +27,24 @@ const ERRORS = {
 	different: ""
 };
 
+function menu_visiteur() {
+	$('.rh').hide();
+	$('.candidat').hide();
+}
+
+function menu_rh() {
+	$('.rh').show();
+	$('.candidat').hide();
+	$('.candidat-visiteur').hide();
+	$('.visiteur').hide();
+}
+
+
+function menu_candidat() {
+	$('.rh').hide();
+	$('.candidat').show();
+	$('.visiteur').hide();
+}
 
 function afficheralerte(classadd,classdelete, text)
 {

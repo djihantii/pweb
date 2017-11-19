@@ -7,8 +7,8 @@ Create table CANDIDATS
     PRENOM          VARCHAR(25) NOT NULL,
     SEXE	        CHAR(1),
     MOT_DE_PASSE    VARCHAR(50) NOT NULL,
-    PRIMARY KEY(NUM_CAND),
-    CHECK(SEXE IN('M','F'))
+    CHECK(SEXE IN('M','F') ),
+    PRIMARY KEY(NUM_CAND)
 );
 
 Create table CONTACTS

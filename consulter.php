@@ -1,42 +1,39 @@
-<?php
-	include('php/Connexion.class.php');
-	session_start();
-	if(isset ($_POST['disconnected'])) {
-		session_destroy();
-		$_SESSION['Login'] = "";
-	}
-	$con = new Connexion;
-	$bd = $con->init();
-	echo '
-	<!DOCTYPE html>
-	<html>
-		<head>
-			<meta charset="UTF-8">
-			<title>Consulter les offres d’emploi</title>
-			<link rel="stylesheet" href="css/bootstrap.css" />
-			<link rel="stylesheet" href="css/CSSpersonnalise.css" />
-		</head>
-		<body>
-			<div class="header">
-				<ul>
-					<li><img src="css/logo.png" class="logo"></li>
-					<li><h1>SearchEmploi</h1></li>
-			
-				</ul>
-			</div>
-			<nav class="menu">
-				<a href="index.php">Accueil</a>
-				<a href="consulter.php" class="active visiteur-candidat">Consulter les offres</a>
-				<a href="Candidat_profil.php" class="candidat">Modifier le profil</a>
-				<a href="Candidat_postuler.php" class="candidat">Postuler à une offre</a>
-				<a href="Candidat_resultat.php" class="candidat">Consulter les réponses</a>
-				<a href="Visiteur_inscrire.php" class="visiteur">S\inscrire sur le portail</a>
-				<a href="contact.php class="visiteur-candidat">Contacter les RH</a>
-';
-				if( isset ($_SESSION['Login'])) {
-					echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a>';
-					echo '<script src="js/affichecandidat.js"></script>';
-					echo '<button type="button" class="btn btn-info btn-lg">Deconnexion</button>';
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Consulter les offres d’emploi</title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<link rel="stylesheet" href="css/CSSpersonnalise.css" />
+	</head>
+	<body>
+		<div class="header">
+			<ul>
+				<li><img src="css/logo.png" class="logo"></li>
+				<li><h1>SearchEmploi</h1></li>
+		
+			</ul>
+		</div>
+		<nav class="menu">
+			<a href="index.php">Accueil</a>
+			<a href="consulter.php" class="active visiteur-candidat">Consulter les offres</a>
+			<a href="Candidat_profil.php" class="candidat">Modifier le profil</a>
+			<a href="Candidat_postuler.php" class="candidat">Postuler à une offre</a>
+			<a href="Candidat_resultat.php" class="candidat">Consulter les réponses</a>
+			<a href="Visiteur_inscrire.php" class="visiteur">S\inscrire sur le portail</a>
+			<a href="contact.php class="visiteur-candidat">Contacter les RH</a>
+
+			<?php
+				include('php/Connexion.class.php');
+				session_start();
+				if(isset ($_POST['disconnected'])) {
+					session_destroy();
+					$_SESSION['Login'] = "";
+				}
+				$con = new Connexion;
+				$bd = $con->init();
+				if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="") {
+					echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 				}
 				else{
 					if( isset ($_POST['LoginC']) and isset($_POST['PasswordC']) and trim($_POST['LoginC'])!="" and trim($_POST['PasswordC'])!="" ) {
@@ -52,9 +49,10 @@
 								$_SESSION['Nom'] = $res['NOM'];
 								$_SESSION['Prenom'] = $res['PRENOM'];
 								$_SESSION['connecte'] = true;
-								echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a>';
-								echo '<script src="js/affichecandidat.js"></script>';
-								echo '<button type="button" class="btn btn-info btn-lg">Deconnexion</button>';
+								$_SESSION['candidat'] = true;
+								echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-disconnect" action="index.php" method="post">
+								<button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button>
+								</form>';
 							}
 							else
 							{
@@ -112,9 +110,14 @@
 
 							if(sha1($_POST['PasswordA'])==$res['MOT_DE_PASSE'])
 							{
-								echo '<p> Connexion réussie </p>';
 								$_SESSION['Login'] = $_POST['LoginA'];
+								$_SESSION['Nom'] = $res['NOM'];
+								$_SESSION['Prenom'] = $res['PRENOM'];
 								$_SESSION['connecte'] = true;
+								$_SESSION['candidat'] = false;
+								echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-disconnect" action="index.php" method="post">
+								<button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button>
+								</form>';
 							}
 							else
 							{
@@ -152,7 +155,7 @@
 				  		 			</form>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default connected" data-dismiss="modal">Fermer</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 								</div>
 							</div>
 
@@ -160,71 +163,70 @@
 					</div>';
 					}
 				}
-				echo'
-			</nav>
-			<div class="row">
-				<div class="col-3">
-					<form class="search">
-						<label for="recherche">Rechercher :</label>
-						<input id="recherche" type="text" placeholder="Recherche">
-						<button class="btn-block">Rechercher</button>
-						<label>Trier par:</label>
-						<ul>
-							<label>Nom<input type="radio" name="tri"></label>
-							<label>Pertinence<input type="radio" name="tri"></label>
-							<label>Date<input type="radio" name="tri"></label>
-						</ul>
-					</form>
-				</div>
-				<div class="col">
-					<h2>Consulter les offres</h2>
-					<table class="table table-bordered">
-						<thead class="jumbotron">
-							<tr>
-								<th>Nom du poste</th>
-								<th>Nom de l\'entreprise</th>
-								<th>Type d\'emploi</th>
-								<th>Lieu du travail</th>
-								<th>Description</th>
-							</tr>
-						</thead>
-						<tbody>';
-
-		$requete = $bd->prepare('SELECT * FROM OFFRES');
-		$requete->execute();
-		while ($tab = $requete->fetch(PDO::FETCH_ASSOC) )
-		{
-			echo'<tr><td>' . $tab['NOM_POSTE'] . '</td><td>' . $tab['LIEU_TRAVAIL'] .'</td><td>'. $tab['TYPE_EMPLOI'] .'</td><td>'. $tab['DIPLOME'] .'</td><td>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Consulter l\'offre</button>
-				<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle">Description de l\'offre</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">'.$tab['MISSION'].'<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-								<button type="button" class="btn btn-primary">Postuler</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				</td>
-				</tr>';
-		}
-
-
-		echo '</tbody>
-					</table>
-				</div>
+			?>
+		</nav>
+		<div class="row">
+			<div class="col-3">
+				<form class="search">
+					<label for="recherche">Rechercher :</label>
+					<input id="recherche" type="text" placeholder="Recherche">
+					<button class="btn-block">Rechercher</button>
+					<label>Trier par:</label>
+					<ul>
+						<label>Nom<input type="radio" name="tri"></label>
+						<label>Pertinence<input type="radio" name="tri"></label>
+						<label>Date<input type="radio" name="tri"></label>
+					</ul>
+				</form>
 			</div>
-			<script src="https://code.jquery.com/jquery.min.js"></script>
-			<script src="js/bootstrap.js"></script>
-			<script src="js/jsperso.js" ></script>
-		</body>
+			<div class="col">
+				<h2>Consulter les offres</h2>
+				<table class="table table-bordered">
+					<thead class="jumbotron">
+						<tr>
+							<th>Nom du poste</th>
+							<th>Nom de l\'entreprise</th>
+							<th>Type d\'emploi</th>
+							<th>Lieu du travail</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php
 
-	</html>';
-?>
+						$requete = $bd->prepare('SELECT * FROM OFFRES');
+						$requete->execute();
+						while ($tab = $requete->fetch(PDO::FETCH_ASSOC) )
+						{
+							echo'<tr><td>' . $tab['NOM_POSTE'] . '</td><td>' . $tab['LIEU_TRAVAIL'] .'</td><td>'. $tab['TYPE_EMPLOI'] .'</td><td>'. $tab['DIPLOME'] .'</td><td>
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Consulter l\'offre</button>
+								<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLongTitle">Description de l\'offre</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">'.$tab['MISSION'].'<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+												<button type="button" class="btn btn-primary">Postuler</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								</td>
+								</tr>';
+						}
+					?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery.min.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/jsperso.js" ></script>
+	</body>
+
+</html>
