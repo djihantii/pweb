@@ -166,6 +166,15 @@ input[type=text], input[type=password]{
   height: 65px;
 }
 
+.rh{
+  display: none !important;
+}
+
+.candidat{
+  display: none !important;
+}
+
+
 @media screen and (max-width: 600px){
   .menu a{
     display: block;
