@@ -167,7 +167,7 @@
 				}
 			?>
 		</nav>
-		<form class="form-submit border rounded">
+		<form class="form-submit border rounded" action="contact.php">
 			<div class="hidden alert"></div>
 			<h2>Contacter les Ressources Humaines</h2>
 			<div class="form-group has-feedback">
@@ -186,7 +186,7 @@
 				<label for="comment">Commentaire:</label>
 				<textarea id="comment" class="form-control saisievide" placeholder="Commentaire"></textarea>
 			</div>
-			<button type="button" class="envoyer btn-block">Envoyer</button>
+			<button type="submit" class="envoyer btn-block">Envoyer</button>
 		</form>
 		<script src="https://code.jquery.com/jquery.min.js"></script>
 		<script src="js/bootstrap.js"></script>

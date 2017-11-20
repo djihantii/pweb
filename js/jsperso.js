@@ -17,6 +17,18 @@ $(function() {
 				afficheralerte('alert-danger','alert-success', 'Mot de passe valide');
 				alert("Validation réussie");
 			}
+			else
+			{
+				$("form").submit(function(e){
+	            	e.preventDefault(e);
+	        	})
+			}
+		}
+		else
+		{
+			$("form").submit(function(e){
+            	e.preventDefault(e);
+        	})
 		}
 	});
 	menu_visiteur();
