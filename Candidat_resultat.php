@@ -47,21 +47,21 @@
 				</form>
 			</div>
 			<div class="col">
-				<h2>Réponses de candidature</h2>
-
-				<table class="table table-bordered">
-					<thead class="jumbotron">
-						<tr>
-							<th>Nom du poste</th>
-							<th>Nom de l'entreprise</th>
-							<th>Type d'emploi</th>
-							<th>Lieu du travail</th>
-							<th>Description</th>
-							<th>Etat</th>
-						</tr>
-					</thead>
-					<tbody>
 					<?php
+						echo'<h2>Réponses de candidature</h2>
+
+							<table class="table table-bordered">
+								<thead class="jumbotron">
+									<tr>
+										<th>Nom du poste</th>
+										<th>Nom de l\'entreprise</th>
+										<th>Type d\'emploi</th>
+										<th>Lieu du travail</th>
+										<th>Description</th>
+										<th>Etat</th>
+									</tr>
+								</thead>
+								<tbody>';
 
 						$requete = $bd->prepare('SELECT * FROM OFFRES');
 						$requete->execute();
@@ -89,9 +89,9 @@
 								<td>En attente</td>
 								</tr>';
 						}
+						echo'</tbody>
+						</table>';
 					?>
-					</tbody>
-				</table>
 			</div>
 		</div>
 		<script src="https://code.jquery.com/jquery.min.js"></script>

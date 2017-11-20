@@ -27,7 +27,20 @@
 				}
 				$con = new Connexion;
 				$bd = $con->init();
-				if( isset ($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
+				if( isset($_POST['Nom'])){
+						$requete = $bd->prepare('SELECT COUNT(NOM) AS Numb FROM CONTACTS');
+						$requete->execute();
+						$donnees = $requete->fetch(PDO::FETCH_ASSOC);
+						$requete = $bd->prepare('INSERT INTO CONTACT VALUES (:Num,:Name,:Surname,:Email,:Comment)');
+						$requete->bindValue(':Num',$donnees['Numb']+1);
+						$requete->bindValue(':Name',$_POST['Nom']);
+						$requete->bindValue(':Surname',$_POST['Prenom']);
+						$requete->bindValue(':Email',$_POST['Email']);
+						$requete->bindValue(':Comment',$_POST['Comment']);
+						$requete->execute();
+				}
+
+				if( isset($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
 						$requete = $bd->prepare('SELECT * FROM COMPTE WHERE LOGIN = :login');
 						$requete->bindValue(':login',$_POST['Login']);
 						$requete->execute();
@@ -137,24 +150,24 @@
 				}
 			?>
 		</nav>
-		<form class="form-submit border rounded" action="contact.php">
+		<form class="form-submit border rounded" action="contact.php" method="post">
 			<div class="hidden alert"></div>
 			<h2>Contacter les Ressources Humaines</h2>
 			<div class="form-group has-feedback">
 				<label for="nom">Nom: </label>	
-				<input id="nom" class="form-control saisievide" type="text" placeholder="Nom">
+				<input id="nom" class="form-control saisievide" type="text" name="Nom" placeholder="Nom">
 			</div>
 			<div class="form-group has-feedback">
 				<label for="prenom">Prénom: </label>
-				<input id="prenom" class="form-control saisievide" type="text" placeholder="Prénom">
+				<input id="prenom" class="form-control saisievide" type="text" name="Prenom" placeholder="Prénom">
 			</div>
 			<div class="form-group has-feedback">
 				<label for="mail">E-mail:</label>
-				<input id="mail" class="form-control saisievide" type="text" placeholder="E-mail">
+				<input id="mail" class="form-control saisievide" type="text" name="Email" placeholder="E-mail">
 			</div>
 			<div class="form-group has-feedback">
 				<label for="comment">Commentaire:</label>
-				<textarea id="comment" class="form-control saisievide" placeholder="Commentaire"></textarea>
+				<textarea id="comment" class="form-control saisievide" name="Commentaire" placeholder="Commentaire"></textarea>
 			</div>
 			<button type="submit" class="envoyer btn-block">Envoyer</button>
 		</form>
