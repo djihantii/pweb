@@ -17,16 +17,16 @@
 		<nav class="menu">
 			<a href="index.php" class="active">Accueil</a>
 
-			<?php
+						<?php
 				include('php/Connexion.class.php');
 				session_start();
-				if(isset ($_POST['disconnected'])) {
+				if(isset($_POST['disconnected'])) {
 					session_destroy();
 					$_SESSION['Login'] = "";
 				}
 				$con = new Connexion;
 				$bd = $con->init();
-				if( isset ($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
+				if( isset($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
 						$requete = $bd->prepare('SELECT * FROM COMPTE WHERE LOGIN = :login');
 						$requete->bindValue(':login',$_POST['Login']);
 						$requete->execute();
@@ -70,7 +70,7 @@
 						}
 					}
 					else{
-						if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset($_SESSION['candidat'])) {
+						if( isset($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset($_SESSION['candidat'])) {
 							if(($_SESSION['candidat']) == true){
 							echo'<a href="consulter.php">Consulter les offres</a>
 							<a href="Candidat_profil.php">Modifier le profil</a>

@@ -24,13 +24,13 @@
 				<?php
 					include('php/Connexion.class.php');
 					session_start();
-					if(isset ($_POST['disconnected'])) {
+					if(isset($_POST['disconnected'])) {
 						session_destroy();
 						$_SESSION['Login'] = "";
 					}
 					$con = new Connexion;
 					$bd = $con->init();
-					if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="") {
+					if(isset($_SESSION['Login']) and trim($_SESSION['Login'])!="") {
 						echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 					}
 				?>

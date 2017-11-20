@@ -28,10 +28,10 @@
 				$con = new Connexion;
 				$bd = $con->init();
 				if( isset($_POST['Nom'])){
-						$req = $bd->prepare('SELECT COUNT(NOM) AS Numb FROM CONTACTS');
+						$req = $bd->prepare('SELECT COUNT(NUM_CONTACT) AS Numb FROM CONTACTS');
 						$req->execute();
 						$donnees = $req->fetch();
-						$requete = $bd->prepare('INSERT INTO CONTACT VALUES (:Num,:Name,:Surname,:Email,:Comment)');
+						$requete = $bd->prepare('INSERT INTO CONTACTS VALUES (:Num,:Name,:Surname,:Email,:Comment)');
 						$requete->bindValue(':Num',$donnees['Numb']+1);
 						$requete->bindValue(':Name',$_POST['Nom']);
 						$requete->bindValue(':Surname',$_POST['Prenom']);
@@ -67,13 +67,13 @@
 								{
 									$_SESSION['candidat'] = false;
 									echo'
-									<a href="RH_new_offre.html">Créer des offres</a>
-									<a href="RH_inscrire_collegue.html">Inscrire un collègue</a>
-									<a href="RH_inscrire.html">Inscrire un candidat</a>
-									<a href="RH_recherche_candidat.html">Rechercher les candidats</a>
-									<a href="RH_resultat.html">Accepter / refuser un candidat sur un poste</a>
-									<a href="RH_blacklister.html">Blacklister un candidat</a>
-									<a href="RH_contact_candidat.html">Contacter un candidat</a>';
+									<a href="RH_new_offre.php">Créer des offres</a>
+									<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
+									<a href="RH_inscrire.php">Inscrire un candidat</a>
+									<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
+									<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
+									<a href="RH_blacklister.php">Blacklister un candidat</a>
+									<a href="RH_contact_candidat.php">Contacter un candidat</a>';
 									echo '<a>'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 								}
 							}
@@ -95,13 +95,13 @@
 							}
 							else{ 
 							echo'
-							<a href="RH_new_offre.html">Créer des offres</a>
-							<a href="RH_inscrire_collegue.html">Inscrire un collègue</a>
-							<a href="RH_inscrire.html">Inscrire un candidat</a>
-							<a href="RH_recherche_candidat.html">Rechercher les candidats</a>
-							<a href="RH_resultat.html">Accepter / refuser un candidat sur un poste</a>
-							<a href="RH_blacklister.html">Blacklister un candidat</a>
-							<a href="RH_contact_candidat.html">Contacter un candidat</a>';
+							<a href="RH_new_offre.php">Créer des offres</a>
+							<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
+							<a href="RH_inscrire.php">Inscrire un candidat</a>
+							<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
+							<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
+							<a href="RH_blacklister.php">Blacklister un candidat</a>
+							<a href="RH_contact_candidat.php">Contacter un candidat</a>';
 							echo '<a>'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 							}
 						}

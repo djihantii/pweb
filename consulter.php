@@ -20,13 +20,13 @@
 			<?php
 				include('php/Connexion.class.php');
 				session_start();
-				if(isset ($_POST['disconnected'])) {
+				if(isset($_POST['disconnected'])) {
 					session_destroy();
 					$_SESSION['Login'] = "";
 				}
 				$con = new Connexion;
 				$bd = $con->init();
-				if( isset ($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
+				if(isset($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
 						$requete = $bd->prepare('SELECT * FROM COMPTE WHERE LOGIN = :login');
 						$requete->bindValue(':login',$_POST['Login']);
 						$requete->execute();
@@ -70,7 +70,7 @@
 						}
 					}
 					else{
-						if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset($_SESSION['candidat'])) {
+						if( isset($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset($_SESSION['candidat'])) {
 							if(($_SESSION['candidat']) == true){
 							echo'<a href="consulter.php">Consulter les offres</a>
 							<a href="Candidat_profil.php">Modifier le profil</a>
@@ -139,15 +139,14 @@
 		<div class="row">
 			<div class="col-3">
 				<form class="search">
-					<label for="recherche">Rechercher :</label>
-					<input id="recherche" type="text" placeholder="Recherche">
+					<label for="recherche" action="consulter.php" method="post">Rechercher :</label>
+					<input id="recherche" type="text" name="search" placeholder="Recherche">
 					<button class="btn-block">Rechercher</button>
-					<label>Trier par:</label>
-					<ul>
-						<label>Nom<input type="radio" name="tri"></label>
-						<label>Pertinence<input type="radio" name="tri"></label>
-						<label>Date<input type="radio" name="tri"></label>
-					</ul>
+					<?php
+						if(isset($_POST['search']) and trim($_POST['search'])!="" ) {
+								echo'<p class="small"> Recherche'.$_POST['search']).'<p>';
+						}
+					?>
 				</form>
 			</div>
 			<div class="col">
@@ -164,8 +163,13 @@
 					</thead>
 					<tbody>
 					<?php
-
-						$requete = $bd->prepare('SELECT * FROM OFFRES');
+						if(isset($_POST['search']) and trim($_POST['search'])!="" ) {
+							$requete = $bd->prepare('SELECT * FROM OFFRES WHERE NUM_OFFRE LIKE "%:attr" OR LIEU_TRAVAIL LIKE "%:attr" OR TYPE_EMPLOI LIKE "%:attr" OR DIPLOME LIKE "%:attr"');
+						}
+						else
+						{
+							$requete = $bd->prepare('SELECT * FROM OFFRES');
+						}
 						$requete->execute();
 						while ($tab = $requete->fetch(PDO::FETCH_ASSOC) )
 						{
