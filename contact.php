@@ -28,15 +28,15 @@
 				$con = new Connexion;
 				$bd = $con->init();
 				if( isset($_POST['Nom'])){
-						$requete = $bd->prepare('SELECT COUNT(NOM) AS Numb FROM CONTACTS');
-						$requete->execute();
-						$donnees = $requete->fetch(PDO::FETCH_ASSOC);
+						$req = $bd->prepare('SELECT COUNT(NOM) AS Numb FROM CONTACTS');
+						$req->execute();
+						$donnees = $req->fetch();
 						$requete = $bd->prepare('INSERT INTO CONTACT VALUES (:Num,:Name,:Surname,:Email,:Comment)');
 						$requete->bindValue(':Num',$donnees['Numb']+1);
 						$requete->bindValue(':Name',$_POST['Nom']);
 						$requete->bindValue(':Surname',$_POST['Prenom']);
 						$requete->bindValue(':Email',$_POST['Email']);
-						$requete->bindValue(':Comment',$_POST['Comment']);
+						$requete->bindValue(':Comment',$_POST['Commentaire']);
 						$requete->execute();
 				}
 
