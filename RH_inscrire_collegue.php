@@ -38,7 +38,7 @@
 					echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 				}
 				if( isset($_POST['Login'])){
-					$requete = $bd->prepare('INSERT INTO COMPTE VALUES (:Login,:Email,:Name,:surname,:gnr,:pwd,"Y","T")');
+					$requete = $bd->prepare('INSERT INTO COMPTE VALUES (:Login,:Email,:Name,:surname,:gnr,:pwd,"N","F")');
 					$requete->bindValue(':Login',$_POST['Login']);
 					$requete->bindValue(':Name',$_POST['Nom']);
 					$requete->bindValue(':surname',$_POST['Prenom']);

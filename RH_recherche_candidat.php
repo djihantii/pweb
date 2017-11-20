@@ -63,7 +63,6 @@
 							<th>Prénom</th>
 							<th>Genre</th>
 							<th>E-mail</th>
-							<th>Diplôme</th>
 							<th>Consulter</th>
 						</tr>
 					</thead>
@@ -81,8 +80,7 @@
 						while ($tab = $requete->fetch(PDO::FETCH_ASSOC) )
 						{
 							echo'<tr><td>' . $tab['NOM'] . '</td><td>' . $tab['PRENOM'] .'</td><td>'. $tab['SEXE'] .'</td><td>'. $tab['EMAIL'] .'</td><td>
-												<button type="button" class="btn btn-success">Accepter</button>
-												<button type="button" class="btn btn-warning">Refuser</button>
+												<button type="button" class="btn btn-primary">Postuler</button>
 								</td>
 								</tr>';
 						}
