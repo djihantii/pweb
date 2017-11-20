@@ -138,13 +138,15 @@
 		</nav>
 		<div class="row">
 			<div class="col-3">
-				<form class="search">
-					<label for="recherche" action="consulter.php" method="post">Rechercher :</label>
-					<input id="recherche" type="text" name="search" placeholder="Recherche">
-					<button class="btn-block">Rechercher</button>
+				<form class="search" action="consulter.php" method="post">
+					<label for="recherche">Rechercher :</label>
+					<input id="recherche" type="text" name="recherche" placeholder="Recherche">
+					<button type="submit" class="btn-block">Rechercher</button>
+					';
+									
 					<?php
-						if(isset($_POST['search']) and trim($_POST['search'])!="" ) {
-								echo'<p class="small"> Recherche'.$_POST['search']).'<p>';
+						if(isset($_POST['recherche']) and trim($_POST['recherche'])!=""){
+								echo '<p class="small"> Recherche du mot-clé: '.$_POST['recherche'].'<p>';
 						}
 					?>
 				</form>
@@ -163,8 +165,9 @@
 					</thead>
 					<tbody>
 					<?php
-						if(isset($_POST['search']) and trim($_POST['search'])!="" ) {
-							$requete = $bd->prepare('SELECT * FROM OFFRES WHERE NUM_OFFRE LIKE "%:attr" OR LIEU_TRAVAIL LIKE "%:attr" OR TYPE_EMPLOI LIKE "%:attr" OR DIPLOME LIKE "%:attr"');
+						if(isset($_POST['recherche']) and trim($_POST['recherche'])!="" ){
+							$requete = $bd->prepare("SELECT * FROM OFFRES WHERE NUM_OFFRE LIKE '%:attr%' OR LIEU_TRAVAIL LIKE '%:attr%' OR TYPE_EMPLOI LIKE '%:attr%' OR DIPLOME LIKE '%:attr%'");
+							$requete->bindValue(':attr',$_POST['recherche']);
 						}
 						else
 						{
