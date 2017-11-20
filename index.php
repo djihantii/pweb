@@ -17,16 +17,16 @@
 		<nav class="menu">
 			<a href="index.php" class="active">Accueil</a>
 
-			<?php
+						<?php
 				include('php/Connexion.class.php');
 				session_start();
-				if(isset ($_POST['disconnected'])) {
+				if(isset($_POST['disconnected'])) {
 					session_destroy();
 					$_SESSION['Login'] = "";
 				}
 				$con = new Connexion;
 				$bd = $con->init();
-				if( isset ($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
+				if( isset($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
 						$requete = $bd->prepare('SELECT * FROM COMPTE WHERE LOGIN = :login');
 						$requete->bindValue(':login',$_POST['Login']);
 						$requete->execute();
@@ -53,13 +53,13 @@
 								{
 									$_SESSION['candidat'] = false;
 									echo'
-									<a href="RH_new_offre.html">Créer des offres</a>
-									<a href="RH_inscrire_collegue.html">Inscrire un collègue</a>
-									<a href="RH_inscrire.html">Inscrire un candidat</a>
-									<a href="RH_recherche_candidat.html">Rechercher les candidats</a>
-									<a href="RH_resultat.html">Accepter / refuser un candidat sur un poste</a>
-									<a href="RH_blacklister.html">Blacklister un candidat</a>
-									<a href="RH_contact_candidat.html">Contacter un candidat</a>';
+									<a href="RH_new_offre.php">Créer des offres</a>
+									<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
+									<a href="RH_inscrire.php">Inscrire un candidat</a>
+									<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
+									<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
+									<a href="RH_blacklister.php">Blacklister un candidat</a>
+									<a href="RH_contact_candidat.php">Contacter un candidat</a>';
 									echo '<a>'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 								}
 							}
@@ -70,7 +70,7 @@
 						}
 					}
 					else{
-						if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset($_SESSION['candidat'])) {
+						if( isset($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset($_SESSION['candidat'])) {
 							if(($_SESSION['candidat']) == true){
 							echo'<a href="consulter.php">Consulter les offres</a>
 							<a href="Candidat_profil.php">Modifier le profil</a>
@@ -81,13 +81,13 @@
 							}
 							else{ 
 							echo'
-							<a href="RH_new_offre.html">Créer des offres</a>
-							<a href="RH_inscrire_collegue.html">Inscrire un collègue</a>
-							<a href="RH_inscrire.html">Inscrire un candidat</a>
-							<a href="RH_recherche_candidat.html">Rechercher les candidats</a>
-							<a href="RH_resultat.html">Accepter / refuser un candidat sur un poste</a>
-							<a href="RH_blacklister.html">Blacklister un candidat</a>
-							<a href="RH_contact_candidat.html">Contacter un candidat</a>';
+							<a href="RH_new_offre.php">Créer des offres</a>
+							<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
+							<a href="RH_inscrire.php">Inscrire un candidat</a>
+							<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
+							<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
+							<a href="RH_blacklister.php">Blacklister un candidat</a>
+							<a href="RH_contact_candidat.php">Contacter un candidat</a>';
 							echo '<a>'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 							}
 						}

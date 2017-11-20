@@ -27,7 +27,20 @@
 				}
 				$con = new Connexion;
 				$bd = $con->init();
-				if( isset ($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
+				if( isset($_POST['Nom'])){
+						$req = $bd->prepare('SELECT COUNT(NUM_CONTACT) AS Numb FROM CONTACTS');
+						$req->execute();
+						$donnees = $req->fetch();
+						$requete = $bd->prepare('INSERT INTO CONTACTS VALUES (:Num,:Name,:Surname,:Email,:Comment)');
+						$requete->bindValue(':Num',$donnees['Numb']+1);
+						$requete->bindValue(':Name',$_POST['Nom']);
+						$requete->bindValue(':Surname',$_POST['Prenom']);
+						$requete->bindValue(':Email',$_POST['Email']);
+						$requete->bindValue(':Comment',$_POST['Commentaire']);
+						$requete->execute();
+				}
+
+				if( isset($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
 						$requete = $bd->prepare('SELECT * FROM COMPTE WHERE LOGIN = :login');
 						$requete->bindValue(':login',$_POST['Login']);
 						$requete->execute();
@@ -54,13 +67,13 @@
 								{
 									$_SESSION['candidat'] = false;
 									echo'
-									<a href="RH_new_offre.html">Créer des offres</a>
-									<a href="RH_inscrire_collegue.html">Inscrire un collègue</a>
-									<a href="RH_inscrire.html">Inscrire un candidat</a>
-									<a href="RH_recherche_candidat.html">Rechercher les candidats</a>
-									<a href="RH_resultat.html">Accepter / refuser un candidat sur un poste</a>
-									<a href="RH_blacklister.html">Blacklister un candidat</a>
-									<a href="RH_contact_candidat.html">Contacter un candidat</a>';
+									<a href="RH_new_offre.php">Créer des offres</a>
+									<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
+									<a href="RH_inscrire.php">Inscrire un candidat</a>
+									<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
+									<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
+									<a href="RH_blacklister.php">Blacklister un candidat</a>
+									<a href="RH_contact_candidat.php">Contacter un candidat</a>';
 									echo '<a>'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 								}
 							}
@@ -82,13 +95,13 @@
 							}
 							else{ 
 							echo'
-							<a href="RH_new_offre.html">Créer des offres</a>
-							<a href="RH_inscrire_collegue.html">Inscrire un collègue</a>
-							<a href="RH_inscrire.html">Inscrire un candidat</a>
-							<a href="RH_recherche_candidat.html">Rechercher les candidats</a>
-							<a href="RH_resultat.html">Accepter / refuser un candidat sur un poste</a>
-							<a href="RH_blacklister.html">Blacklister un candidat</a>
-							<a href="RH_contact_candidat.html">Contacter un candidat</a>';
+							<a href="RH_new_offre.php">Créer des offres</a>
+							<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
+							<a href="RH_inscrire.php">Inscrire un candidat</a>
+							<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
+							<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
+							<a href="RH_blacklister.php">Blacklister un candidat</a>
+							<a href="RH_contact_candidat.php">Contacter un candidat</a>';
 							echo '<a>'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 							}
 						}
@@ -137,24 +150,24 @@
 				}
 			?>
 		</nav>
-		<form class="form-submit border rounded" action="contact.php">
+		<form class="form-submit border rounded" action="contact.php" method="post">
 			<div class="hidden alert"></div>
 			<h2>Contacter les Ressources Humaines</h2>
 			<div class="form-group has-feedback">
 				<label for="nom">Nom: </label>	
-				<input id="nom" class="form-control saisievide" type="text" placeholder="Nom">
+				<input id="nom" class="form-control saisievide" type="text" name="Nom" placeholder="Nom">
 			</div>
 			<div class="form-group has-feedback">
 				<label for="prenom">Prénom: </label>
-				<input id="prenom" class="form-control saisievide" type="text" placeholder="Prénom">
+				<input id="prenom" class="form-control saisievide" type="text" name="Prenom" placeholder="Prénom">
 			</div>
 			<div class="form-group has-feedback">
 				<label for="mail">E-mail:</label>
-				<input id="mail" class="form-control saisievide" type="text" placeholder="E-mail">
+				<input id="mail" class="form-control saisievide" type="text" name="Email" placeholder="E-mail">
 			</div>
 			<div class="form-group has-feedback">
 				<label for="comment">Commentaire:</label>
-				<textarea id="comment" class="form-control saisievide" placeholder="Commentaire"></textarea>
+				<textarea id="comment" class="form-control saisievide" name="Commentaire" placeholder="Commentaire"></textarea>
 			</div>
 			<button type="submit" class="envoyer btn-block">Envoyer</button>
 		</form>

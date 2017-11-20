@@ -20,13 +20,13 @@
 			<?php
 				include('php/Connexion.class.php');
 				session_start();
-				if(isset ($_POST['disconnected'])) {
+				if(isset($_POST['disconnected'])) {
 					session_destroy();
 					$_SESSION['Login'] = "";
 				}
 				$con = new Connexion;
 				$bd = $con->init();
-				if( isset ($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
+				if(isset($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
 						$requete = $bd->prepare('SELECT * FROM COMPTE WHERE LOGIN = :login');
 						$requete->bindValue(':login',$_POST['Login']);
 						$requete->execute();
@@ -53,13 +53,13 @@
 								{
 									$_SESSION['candidat'] = false;
 									echo'
-									<a href="RH_new_offre.html">Créer des offres</a>
-									<a href="RH_inscrire_collegue.html">Inscrire un collègue</a>
-									<a href="RH_inscrire.html">Inscrire un candidat</a>
-									<a href="RH_recherche_candidat.html">Rechercher les candidats</a>
-									<a href="RH_resultat.html">Accepter / refuser un candidat sur un poste</a>
-									<a href="RH_blacklister.html">Blacklister un candidat</a>
-									<a href="RH_contact_candidat.html">Contacter un candidat</a>';
+									<a href="RH_new_offre.php">Créer des offres</a>
+									<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
+									<a href="RH_inscrire.php">Inscrire un candidat</a>
+									<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
+									<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
+									<a href="RH_blacklister.php">Blacklister un candidat</a>
+									<a href="RH_contact_candidat.php">Contacter un candidat</a>';
 									echo '<a>'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 								}
 							}
@@ -70,7 +70,7 @@
 						}
 					}
 					else{
-						if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset($_SESSION['candidat'])) {
+						if( isset($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset($_SESSION['candidat'])) {
 							if(($_SESSION['candidat']) == true){
 							echo'<a href="consulter.php">Consulter les offres</a>
 							<a href="Candidat_profil.php">Modifier le profil</a>
@@ -81,13 +81,13 @@
 							}
 							else{ 
 							echo'
-							<a href="RH_new_offre.html">Créer des offres</a>
-							<a href="RH_inscrire_collegue.html">Inscrire un collègue</a>
-							<a href="RH_inscrire.html">Inscrire un candidat</a>
-							<a href="RH_recherche_candidat.html">Rechercher les candidats</a>
-							<a href="RH_resultat.html">Accepter / refuser un candidat sur un poste</a>
-							<a href="RH_blacklister.html">Blacklister un candidat</a>
-							<a href="RH_contact_candidat.html">Contacter un candidat</a>';
+							<a href="RH_new_offre.php">Créer des offres</a>
+							<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
+							<a href="RH_inscrire.php">Inscrire un candidat</a>
+							<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
+							<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
+							<a href="RH_blacklister.php">Blacklister un candidat</a>
+							<a href="RH_contact_candidat.php">Contacter un candidat</a>';
 							echo '<a>'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 							}
 						}
@@ -139,15 +139,14 @@
 		<div class="row">
 			<div class="col-3">
 				<form class="search">
-					<label for="recherche">Rechercher :</label>
-					<input id="recherche" type="text" placeholder="Recherche">
+					<label for="recherche" action="consulter.php" method="post">Rechercher :</label>
+					<input id="recherche" type="text" name="search" placeholder="Recherche">
 					<button class="btn-block">Rechercher</button>
-					<label>Trier par:</label>
-					<ul>
-						<label>Nom<input type="radio" name="tri"></label>
-						<label>Pertinence<input type="radio" name="tri"></label>
-						<label>Date<input type="radio" name="tri"></label>
-					</ul>
+					<?php
+						if(isset($_POST['search']) and trim($_POST['search'])!="" ) {
+								echo'<p class="small"> Recherche'.$_POST['search']).'<p>';
+						}
+					?>
 				</form>
 			</div>
 			<div class="col">
@@ -164,8 +163,13 @@
 					</thead>
 					<tbody>
 					<?php
-
-						$requete = $bd->prepare('SELECT * FROM OFFRES');
+						if(isset($_POST['search']) and trim($_POST['search'])!="" ) {
+							$requete = $bd->prepare('SELECT * FROM OFFRES WHERE NUM_OFFRE LIKE "%:attr" OR LIEU_TRAVAIL LIKE "%:attr" OR TYPE_EMPLOI LIKE "%:attr" OR DIPLOME LIKE "%:attr"');
+						}
+						else
+						{
+							$requete = $bd->prepare('SELECT * FROM OFFRES');
+						}
 						$requete->execute();
 						while ($tab = $requete->fetch(PDO::FETCH_ASSOC) )
 						{
