@@ -27,19 +27,31 @@
 				session_start();
 					$con = new Connexion;
 				$bd = $con->init();
-				$tab=['Nom','Prenom','Email','genre'];
-				foreach($tab as $cle ) {
-					if( isset ($_POST[$cle]) and trim($_POST[$cle])!="") {
-						$requete = $bd->prepare('UPDATE COMPTE SET NOM = :attr WHERE LOGIN = :login');
-						$requete->bindValue(':login',$_SESSION['Login']);
-						$requete->bindValue(':attr2','NOM');
-						$requete->bindValue(':attr',$_POST[$cle]);
-						$requete->execute();
-						if($cle='Nom' or $cle='Prenom')
-						{
-							$_SESSION[$cle] = $_POST[$cle];
-						}
-					}
+				if( isset ($_POST['Nom']) and trim($_POST['Nom'])!="") {
+					$requete = $bd->prepare('UPDATE COMPTE SET NOM = :attr WHERE LOGIN = :login');
+					$requete->bindValue(':login',$_SESSION['Login']);
+					$requete->bindValue(':attr',$_POST['Nom']);
+					$requete->execute();
+					$_SESSION['Nom'] = $_POST['Nom'];
+				}
+				if( isset ($_POST['Prenom']) and trim($_POST['Prenom'])!="") {
+					$requete = $bd->prepare('UPDATE COMPTE SET PRENOM = :attr WHERE LOGIN = :login');
+					$requete->bindValue(':login',$_SESSION['Login']);
+					$requete->bindValue(':attr',$_POST['Prenom']);
+					$requete->execute();
+					$_SESSION['Prenom'] = $_POST['Prenom'];
+				}
+				if( isset ($_POST['Email']) and trim($_POST['Email'])!="") {
+					$requete = $bd->prepare('UPDATE COMPTE SET EMAIL = :attr WHERE LOGIN = :login');
+					$requete->bindValue(':login',$_SESSION['Login']);
+					$requete->bindValue(':attr',$_POST['Email']);
+					$requete->execute();
+				}
+				if( isset ($_POST['genre']) and trim($_POST['genre'])!="") {
+					$requete = $bd->prepare('UPDATE COMPTE SET SEXE = :attr WHERE LOGIN = :login');
+					$requete->bindValue(':login',$_SESSION['Login']);
+					$requete->bindValue(':attr',$_POST['genre']);
+					$requete->execute();
 				}
 				if( isset ($_POST['pwd']) and trim($_POST['pwd'])!="" and isset ($_POST['pwd2']) and trim($_POST['pwd2'])!="") {
 					$requete = $bd->prepare('UPDATE COMPTE SET MOTDEPASSE= :attr WHERE LOGIN = :login');
