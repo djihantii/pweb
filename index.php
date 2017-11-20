@@ -41,13 +41,19 @@
 								$_SESSION['connecte'] = true;
 								if($res['CANDIDAT'] == 'Y')
 								{
+									if($res['BLACKLIST']== 'T')
+									{
+										echo 'Votre compte a été banni';
+									}
+									else{
 									$_SESSION['candidat'] = true;
-									echo'<a href="consulter.php">Consulter les offres</a>
-									<a href="Candidat_profil.php">Modifier le profil</a>
-									<a href="Candidat_postuler.php">Postuler à une offre</a>
-									<a href="Candidat_resultat.php">Consulter les réponses</a>
-									<a href="contact.php>Contacter les RH</a>';
-									echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
+										echo'<a href="consulter.php">Consulter les offres</a>
+										<a href="Candidat_profil.php">Modifier le profil</a>
+										<a href="Candidat_postuler.php">Postuler à une offre</a>
+										<a href="Candidat_resultat.php">Consulter les réponses</a>
+										<a href="contact.php>Contacter les RH</a>';
+										echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
+									}
 								}
 								else
 								{
@@ -55,7 +61,6 @@
 									echo'
 									<a href="RH_new_offre.php">Créer des offres</a>
 									<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
-									<a href="RH_inscrire.php">Inscrire un candidat</a>
 									<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
 									<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
 									<a href="RH_blacklister.php">Blacklister un candidat</a>
@@ -87,7 +92,6 @@
 							echo'
 							<a href="RH_new_offre.php">Créer des offres</a>
 							<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
-							<a href="RH_inscrire.php">Inscrire un candidat</a>
 							<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
 							<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
 							<a href="RH_blacklister.php">Blacklister un candidat</a>

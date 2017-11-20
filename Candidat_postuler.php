@@ -91,13 +91,12 @@
 														</div>
 														<div class="modal-body">'.$tab['MISSION'].'<div class="modal-footer">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-															<button type="button" class="btn btn-primary">Postuler</button>
 														</div>
 													</div>
 												</div>
 											</div>
 											</td>
-											<td><button type="submit" class="btn btn-success">Postuler</button></td>
+											<td><form action="Candidat_postuler.php"><button type="submit" class="btn btn-success" name="postuler" value="N">Postuler</button></form></td>
 											</tr>';
 						}
 					?>
