@@ -8,8 +8,10 @@ Create table COMPTE
     SEXE	    CHAR(1),
     MOT_DE_PASSE    VARCHAR(50) NOT NULL,
     CANDIDAT	    CHAR(1),
+    BLACKLIST	    CHAR(1),
     CHECK(SEXE IN('M','F') ),
     CHECK(CANDIDAT IN('Y','N') ),
+    CHECK(BLACKLIST IN('Y','N') ),
     PRIMARY KEY(NUM_CAND)
 );
 

@@ -30,148 +30,94 @@
 			<a href="RH_blacklister.php" class="rh">Blacklister un candidat</a>
 			<a href="RH_contact_candidat.php" class="rh">Contacter un candidat</a>
 
-<?php
-	include('php/Connexion.class.php');
-	session_start();
-	if(isset ($_POST['disconnected'])) {
-		session_destroy();
-		$_SESSION['Login'] = "";
-	}
-	$con = new Connexion;
-	$bd = $con->init();
-	if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="") {
-		echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
-	}
-	else{
-		if( isset ($_POST['LoginC']) and isset($_POST['PasswordC']) and trim($_POST['LoginC'])!="" and trim($_POST['PasswordC'])!="" ) {
-			$requete = $bd->prepare('SELECT * FROM CANDIDATS WHERE LOGIN = :login');
-			$requete->bindValue(':login',$_POST['LoginC']);
-			$requete->execute();
-			$res = $requete->fetch(PDO::FETCH_ASSOC);
-			if($res) {
-
-				if(sha1($_POST['PasswordC'])==$res['MOT_DE_PASSE'])
-				{
-					$_SESSION['Login'] = $_POST['LoginC'];
-					$_SESSION['Nom'] = $res['NOM'];
-					$_SESSION['Prenom'] = $res['PRENOM'];
-					$_SESSION['connecte'] = true;
-					$_SESSION['candidat'] = true;
-					echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-disconnect" action="index.php" method="post">
-					<button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button>
-					</form>';
+			<?php
+				include('php/Connexion.class.php');
+				session_start();
+				if(isset ($_POST['disconnected'])) {
+					session_destroy();
+					$_SESSION['Login'] = "";
 				}
-				else
-				{
-					echo 'Echec de connexion';
+				$con = new Connexion;
+				$bd = $con->init();
+				if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="") {
+					echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 				}
-			}
-		}
-		else{
-			echo'
-				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ConCand">Connexion Candidat</button>
+				else{
+					if( isset ($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
+						$requete = $bd->prepare('SELECT * FROM CANDIDATS WHERE LOGIN = :login');
+						$requete->bindValue(':login',$_POST['Login']);
+						$requete->execute();
+						$res = $requete->fetch(PDO::FETCH_ASSOC);
+						if($res) {
 
-				<!-- connexion candidat -->
-				<div class="modal fade" id="ConCand" role="dialog">
-					<div class="modal-dialog">
+							if(sha1($_POST['Password'])==$res['MOT_DE_PASSE'])
+							{
+								$_SESSION['Login'] = $_POST['Login'];
+								$_SESSION['Nom'] = $res['NOM'];
+								$_SESSION['Prenom'] = $res['PRENOM'];
+								$_SESSION['connecte'] = true;
+								if($res['CANDIDAT'] == 'Y')
+								{
+									$_SESSION['candidat'] = true;
+								}
+								else
+								{
+									$_SESSION['candidat'] = false;
+								}
+								echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-disconnect" action="index.php" method="post">
+								<button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button>
+								</form>';
+							}
+							else
+							{
+								echo 'Echec de connexion';
+							}
+						}
+					}
+					else{
+						echo'
+							<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ConCand">Connexion Candidat</button>
 
-						<!-- Classe Modal content-->
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Connexion</h4>
-							</div>
-							<div class="modal-body">
+							<!-- connexion candidat -->
+							<div class="modal fade" id="ConCand" role="dialog">
+								<div class="modal-dialog">
 
-								<!-- Pour se connecter--> 
+									<!-- Classe Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Connexion</h4>
+										</div>
+										<div class="modal-body">
 
-								<form class="form-signin" action="index.php" method="post">
-									<h2 class="form-signin-heading">Connexion Candidat</h2>
-									<label for="inputLoginC">Login</label>
-									<input type="text" id="inputLoginC" class="form-control" name="LoginC" placeholder="Login" required="" autofocus="">
-									<label for="inputPasswordC">Mot de passe</label>
-									<input type="password" id="inputPasswordC" class="form-control" name="PasswordC" placeholder="Mot de passe" required="">
-									<div class="checkbox">
-					  					<label>
-											<input type="checkbox" value="remember-me">Se souvenir
-					  					</label>
+											<!-- Pour se connecter--> 
+
+											<form class="form-signin" action="index.php" method="post">
+												<h2 class="form-signin-heading">Connexion Candidat</h2>
+												<label for="inputLoginC">Login</label>
+												<input type="text" id="inputLogin" class="form-control" name="Login" placeholder="Login" required="" autofocus="">
+												<label for="inputPassword">Mot de passe</label>
+												<input type="password" id="inputPassword" class="form-control" name="Password" placeholder="Mot de passe" required="">
+												<div class="checkbox">
+								  					<label>
+														<input type="checkbox" value="remember-me">Se souvenir
+								  					</label>
+												</div>
+												<button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
+						  		 			</form>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default connected" data-dismiss="modal">Fermer</button>
+										</div>
 									</div>
-									<button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
-			  		 			</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default connected" data-dismiss="modal">Fermer</button>
-							</div>
-						</div>
 
-					</div>
-				</div>
-				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ConAdmin">Connexion RH</button>';
-		}
-		if( isset ($_POST['LoginA']) and isset($_POST['PasswordA']) and trim($_POST['LoginA'])!="" and trim($_POST['PasswordA'])!="" ) {
-			$requete = $bd->prepare('SELECT * FROM RH WHERE LOGIN = :login');
-			$requete->bindValue(':login',$_POST['LoginA']);
-			$requete->execute();
-			$res = $requete->fetch(PDO::FETCH_ASSOC);
-			if($res) {
-
-				if(sha1($_POST['PasswordA'])==$res['MOT_DE_PASSE'])
-				{
-					$_SESSION['Login'] = $_POST['LoginA'];
-					$_SESSION['Nom'] = $res['NOM'];
-					$_SESSION['Prenom'] = $res['PRENOM'];
-					$_SESSION['connecte'] = true;
-					$_SESSION['candidat'] = false;
-					echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-disconnect" action="index.php" method="post">
-					<button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button>
-					</form>';
+								</div>
+							</div>
+							<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ConAdmin">Connexion RH</button>';
+					}
 				}
-				else
-				{
-					echo 'Echec de connexion';
-				}
-			}
-		}
-		else{
-		echo'<!-- Connexion RH -->
-		<div class="modal fade" id="ConAdmin" role="dialog">
-			<div class="modal-dialog">
-
-				<!-- Classe Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Connexion RH</h4>
-					</div>
-					<div class="modal-body">
-
-						<!-- Pour se connecter--> 
-
-						<form class="form-signin" action="index.php" method="post">
-							<h2 class="form-signin-heading">Se connecter</h2>
-							<label for="inputLoginA">Login</label>
-							<input type="text" id="inputLoginA" class="form-control" name="LoginA" placeholder="Login" required="" autofocus="">
-							<label for="inputPasswordA">Mot de passe</label>
-							<input type="password" id="inputPasswordA" class="form-control" name="PasswordA" placeholder="Mot de passe" required="">
-							<div class="checkbox">
-			  					<label>
-									<input type="checkbox" value="remember-me">Se souvenir
-			  					</label>
-							</div>
-							<button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
-	  		 			</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-					</div>
-				</div>
-
-			</div>
-		</div>';
-		}
-	}
-?>
-</nav>
+			?>
+		</nav>
 		<h2>Accueil</h2>
 		<script src="https://code.jquery.com/jquery.min.js"></script>
 		<script src="js/jsperso.js" ></script>
