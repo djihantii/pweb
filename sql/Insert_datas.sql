@@ -1,5 +1,5 @@
-Insert into CANDIDATS Values ('1','Qye','Yijian@gmail.com','YE','Quentin','M',SHA1('12345678'));
-Insert into CANDIDATS Values ('2','Djihanti','Djihane@gmail.com','AKROUM','Djihane','F',SHA1('12345678'));
+Insert into COMPTE Values ('1','Qye','Yijian@gmail.com','YE','Quentin','M',SHA1('12345678'),'N');
+Insert into COMPTE Values ('2','Djihanti','Djihane@gmail.com','AKROUM','Djihane','F',SHA1('12345678'),'Y');
 
 Insert into CONTACTS Values ('1','Yijian','YE','Quentin','test s il vous plait') ;
 

@@ -1,13 +1,15 @@
-Create table CANDIDATS
+Create table COMPTE
 (
     NUM_CAND	    INT(4),
     LOGIN           VARCHAR(25) UNIQUE,
     EMAIL           VARCHAR(25) NOT NULL,
     NOM             VARCHAR(25) NOT NULL,
     PRENOM          VARCHAR(25) NOT NULL,
-    SEXE	        CHAR(1),
+    SEXE	    CHAR(1),
     MOT_DE_PASSE    VARCHAR(50) NOT NULL,
+    CANDIDAT	    CHAR(1),
     CHECK(SEXE IN('M','F') ),
+    CHECK(CANDIDAT IN('Y','N') ),
     PRIMARY KEY(NUM_CAND)
 );
 
