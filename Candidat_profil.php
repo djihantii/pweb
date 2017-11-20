@@ -29,19 +29,20 @@
 				$bd = $con->init();
 				$tab=['Nom','Prenom','Email','genre'];
 				foreach($tab as $cle ) {
-				if( isset ($_POST[$cle]) and trim($_POST[$cle])!="") {
-					$requete = $bd->prepare('UPDATE CANDIDATS SET :attr2= :attr WHERE LOGIN = :login');
-					$requete->bindValue(':login',$_SESSION['Login']);
-					$requete->bindValue(':attr2',upper($_POST[$cle]));
-					$requete->bindValue(':attr',$_POST[$cle]);
-					$requete->execute();
-					if($cle='Nom' or $cle='Prenom')
-					{
-						$_SESSION[$cle] = $_POST[$cle];
+					if( isset ($_POST[$cle]) and trim($_POST[$cle])!="") {
+						$requete = $bd->prepare('UPDATE COMPTE SET NOM = :attr WHERE LOGIN = :login');
+						$requete->bindValue(':login',$_SESSION['Login']);
+						$requete->bindValue(':attr2','NOM');
+						$requete->bindValue(':attr',$_POST[$cle]);
+						$requete->execute();
+						if($cle='Nom' or $cle='Prenom')
+						{
+							$_SESSION[$cle] = $_POST[$cle];
+						}
 					}
 				}
 				if( isset ($_POST['pwd']) and trim($_POST['pwd'])!="" and isset ($_POST['pwd2']) and trim($_POST['pwd2'])!="") {
-					$requete = $bd->prepare('UPDATE CANDIDATS SET MOTDEPASSE= :attr WHERE LOGIN = :login');
+					$requete = $bd->prepare('UPDATE COMPTE SET MOTDEPASSE= :attr WHERE LOGIN = :login');
 					$requete->bindValue(':login',$_SESSION['Login']);
 					if($_POST['pwd'] == $_POST['pwd2'])
 					{
@@ -59,7 +60,7 @@
 		</nav>
 		<form class="form-submit border rounded" action="Candidat_profil.php" method="post">
 		<?php
-			$requete = $bd->prepare('SELECT * FROM CANDIDATS WHERE LOGIN = :login');
+			$requete = $bd->prepare('SELECT * FROM COMPTE WHERE LOGIN = :login');
 			$requete->bindValue(':login',$_SESSION['Login']);
 			$requete->execute();
 			$res = $requete->fetch(PDO::FETCH_ASSOC);
@@ -95,7 +96,7 @@
 				<button type="submit" class="envoyer btn-block">Modifier</button>
 			';
 			?>
-			</form>
+		</form>
 		<script src="https://code.jquery.com/jquery.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 	</body>

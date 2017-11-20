@@ -1,5 +1,6 @@
-Insert into COMPTE Values ('1','Qye','Yijian@gmail.com','YE','Quentin','M',SHA1('12345678'),'N');
-Insert into COMPTE Values ('2','Djihanti','Djihane@gmail.com','AKROUM','Djihane','F',SHA1('12345678'),'Y');
+Insert into COMPTE Values ('Qye','Yijian@gmail.com','YE','Quentin','M',SHA1('12345678'),'N','F');
+Insert into COMPTE Values ('Djihanti','Djihane@gmail.com','AKROUM','Djihane','F',SHA1('12345678'),'Y','F');
+Insert into COMPTE Values ('Marvin','marvin@gmail.com','GILLY','Marvin','M',SHA1('marvin'),'N','F');
 
 Insert into CONTACTS Values ('1','Yijian','YE','Quentin','test s il vous plait') ;
 

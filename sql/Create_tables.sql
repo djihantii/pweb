@@ -1,7 +1,6 @@
 Create table COMPTE
 (
-    NUM_CAND	    INT(4),
-    LOGIN           VARCHAR(25) UNIQUE,
+    LOGIN           VARCHAR(25),
     EMAIL           VARCHAR(25) NOT NULL,
     NOM             VARCHAR(25) NOT NULL,
     PRENOM          VARCHAR(25) NOT NULL,
@@ -11,8 +10,8 @@ Create table COMPTE
     BLACKLIST	    CHAR(1),
     CHECK(SEXE IN('M','F') ),
     CHECK(CANDIDAT IN('Y','N') ),
-    CHECK(BLACKLIST IN('Y','N') ),
-    PRIMARY KEY(NUM_CAND)
+    CHECK(BLACKLIST IN('T','F') ),
+    PRIMARY KEY(LOGIN)
 );
 
 Create table CONTACTS

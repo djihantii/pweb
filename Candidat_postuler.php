@@ -88,7 +88,7 @@
 													</div>
 												</div>
 												</td>
-												<td><button type="button" class="btn btn-success">Postuler</button></td>
+												<td><button type="submit" class="btn btn-success">Postuler</button></td>
 												</tr>';
 							}
 					?>

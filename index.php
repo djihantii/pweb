@@ -16,19 +16,6 @@
 		</div>
 		<nav class="menu">
 			<a href="index.php" class="active">Accueil</a>
-			<a href="consulter.php" class="visiteur-candidat">Consulter les offres</a>
-			<a href="Candidat_profil.php" class="candidat">Modifier le profil</a>
-			<a href="Candidat_postuler.php" class="candidat">Postuler à une offre</a>
-			<a href="Candidat_resultat.php" class="candidat">Consulter les réponses</a>
-			<a href="Visiteur_inscrire.php" class="visiteur">S\inscrire sur le portail</a>
-			<a href="contact.php" class="visiteur-candidat">Contacter les RH</a>
-			<a href="RH_new_offre.php" class="rh">Créer des offres</a>
-			<a href="RH_inscrire_collegue.php" class="rh">Inscrire un collègue</a>
-			<a href="RH_inscrire.php" class="rh">Inscrire un candidat</a>
-			<a href="RH_recherche_candidat.php" class="rh">Rechercher les candidats</a>
-			<a href="RH_resultat.php" class="rh">Accepter / refuser un candidat sur un poste</a>
-			<a href="RH_blacklister.php" class="rh">Blacklister un candidat</a>
-			<a href="RH_contact_candidat.php" class="rh">Contacter un candidat</a>
 
 			<?php
 				include('php/Connexion.class.php');
@@ -39,12 +26,8 @@
 				}
 				$con = new Connexion;
 				$bd = $con->init();
-				if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="") {
-					echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
-				}
-				else{
-					if( isset ($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
-						$requete = $bd->prepare('SELECT * FROM CANDIDATS WHERE LOGIN = :login');
+				if( isset ($_POST['Login']) and isset($_POST['Password']) and trim($_POST['Login'])!="" and trim($_POST['Password'])!="" ) {
+						$requete = $bd->prepare('SELECT * FROM COMPTE WHERE LOGIN = :login');
 						$requete->bindValue(':login',$_POST['Login']);
 						$requete->execute();
 						$res = $requete->fetch(PDO::FETCH_ASSOC);
@@ -59,14 +42,26 @@
 								if($res['CANDIDAT'] == 'Y')
 								{
 									$_SESSION['candidat'] = true;
+									echo'<a href="consulter.php">Consulter les offres</a>
+									<a href="Candidat_profil.php">Modifier le profil</a>
+									<a href="Candidat_postuler.php">Postuler à une offre</a>
+									<a href="Candidat_resultat.php">Consulter les réponses</a>
+									<a href="contact.php>Contacter les RH</a>';
+									echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 								}
 								else
 								{
 									$_SESSION['candidat'] = false;
+									echo'
+									<a href="RH_new_offre.html">Créer des offres</a>
+									<a href="RH_inscrire_collegue.html">Inscrire un collègue</a>
+									<a href="RH_inscrire.html">Inscrire un candidat</a>
+									<a href="RH_recherche_candidat.html">Rechercher les candidats</a>
+									<a href="RH_resultat.html">Accepter / refuser un candidat sur un poste</a>
+									<a href="RH_blacklister.html">Blacklister un candidat</a>
+									<a href="RH_contact_candidat.html">Contacter un candidat</a>';
+									echo '<a>'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
 								}
-								echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-disconnect" action="index.php" method="post">
-								<button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button>
-								</form>';
 							}
 							else
 							{
@@ -75,11 +70,35 @@
 						}
 					}
 					else{
-						echo'
-							<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ConCand">Connexion Candidat</button>
+						if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset($_SESSION['candidat'])) {
+							if(($_SESSION['candidat']) == true){
+							echo'<a href="consulter.php">Consulter les offres</a>
+							<a href="Candidat_profil.php">Modifier le profil</a>
+							<a href="Candidat_postuler.php">Postuler à une offre</a>
+							<a href="Candidat_resultat.php">Consulter les réponses</a>
+							<a href="contact.php>Contacter les RH</a>';
+							echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
+							}
+							else{ 
+							echo'
+							<a href="RH_new_offre.html">Créer des offres</a>
+							<a href="RH_inscrire_collegue.html">Inscrire un collègue</a>
+							<a href="RH_inscrire.html">Inscrire un candidat</a>
+							<a href="RH_recherche_candidat.html">Rechercher les candidats</a>
+							<a href="RH_resultat.html">Accepter / refuser un candidat sur un poste</a>
+							<a href="RH_blacklister.html">Blacklister un candidat</a>
+							<a href="RH_contact_candidat.html">Contacter un candidat</a>';
+							echo '<a>'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
+							}
+						}
+						else{
+							echo'<a href="consulter.php">Consulter les offres</a>
+							<a href="inscrire.php">S\'inscrire sur le portail</a>
+							<a href="contact.php"">Contacter les RH</a>
+							<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#Con">Connexion</button>
 
 							<!-- connexion candidat -->
-							<div class="modal fade" id="ConCand" role="dialog">
+							<div class="modal fade" id="Con" role="dialog">
 								<div class="modal-dialog">
 
 									<!-- Classe Modal content-->
@@ -93,7 +112,7 @@
 											<!-- Pour se connecter--> 
 
 											<form class="form-signin" action="index.php" method="post">
-												<h2 class="form-signin-heading">Connexion Candidat</h2>
+												<h2 class="form-signin-heading">Connexion</h2>
 												<label for="inputLoginC">Login</label>
 												<input type="text" id="inputLogin" class="form-control" name="Login" placeholder="Login" required="" autofocus="">
 												<label for="inputPassword">Mot de passe</label>
@@ -112,8 +131,7 @@
 									</div>
 
 								</div>
-							</div>
-							<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ConAdmin">Connexion RH</button>';
+							</div>';
 					}
 				}
 			?>
@@ -121,17 +139,6 @@
 		<h2>Accueil</h2>
 		<script src="https://code.jquery.com/jquery.min.js"></script>
 		<script src="js/jsperso.js" ></script>
-		<?php 
-			if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset ($_SESSION['candidat'])) {
-				if($_SESSION['candidat']==true)
-				{
-					echo '<script type="text/javascript" src="js/jsperso.js">menu_candidat()</script>';
-				}
-			}
-			if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset ($_SESSION['candidat']) and $_SESSION['candidat']==false) {
-				echo '<script type="text/javascript" src="js/jsperso.js"></script>';
-			}
-		?>
 		<script src="js/bootstrap.js"></script>
 	</body>
 </html>
