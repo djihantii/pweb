@@ -11,17 +11,29 @@ $(function() {
 		var saisie = saisieok('.saisievide');
 		if(saisie == true)
 		{
+			afficheralerte('alert-success','alert-danger','Formulaire envoyé');
+		}
+		else
+		{
+			$("form").submit(function(e){
+            	e.preventDefault(e);
+        	})
+		}
+	});
+	$('.envoyer-pwd').on('click', function(){	
+		var saisie = saisieok('.saisievide');
+		if(saisie == true)
+		{
 			var passwordValid = Checkpassword('#pass','#pass2');
 			if(passwordValid == true)
 			{
-				afficheralerte('alert-danger','alert-success', 'Mot de passe valide');
-				alert("Validation réussie");
+				afficheralerte('alert-success','alert-danger','Mot de passe valide');
 			}
 			else
 			{
 				$("form").submit(function(e){
 	            	e.preventDefault(e);
-	        	})
+	        	});
 			}
 		}
 		else
@@ -31,32 +43,12 @@ $(function() {
         	})
 		}
 	});
-	menu_visiteur();
 });
 
 const ERRORS = {
 	length: "",
 	different: ""
 };
-
-function menu_visiteur() {
-	$('.rh').hide();
-	$('.candidat').hide();
-}
-
-function menu_rh() {
-	$('.rh').show();
-	$('.candidat').hide();
-	$('.candidat-visiteur').hide();
-	$('.visiteur').hide();
-}
-
-
-function menu_candidat() {
-	$('.rh').hide();
-	$('.candidat').show();
-	$('.visiteur').hide();
-}
 
 function afficheralerte(classadd,classdelete, text)
 {

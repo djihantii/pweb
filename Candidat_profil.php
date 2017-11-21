@@ -23,10 +23,9 @@
 			<a href="Candidat_resultat.php">Consulter les réponses</a>
 			<a href="contact.php">Contacter les RH</a>
 			<?php
-				include('php/Connexion.class.php');
-				session_start();
-					$con = new Connexion;
-				$bd = $con->init();
+				include("php/init.php");
+				init_session();
+				$bd = acces_bd();
 				if( isset ($_POST['Nom']) and trim($_POST['Nom'])!="") {
 					$requete = $bd->prepare('UPDATE COMPTE SET NOM = :attr WHERE LOGIN = :login');
 					$requete->bindValue(':login',$_SESSION['Login']);
@@ -53,32 +52,30 @@
 					$requete->bindValue(':attr',$_POST['genre']);
 					$requete->execute();
 				}
-				if( isset ($_POST['pwd']) and trim($_POST['pwd'])!="" and isset ($_POST['pwd2']) and trim($_POST['pwd2'])!="") {
-					$requete = $bd->prepare('UPDATE COMPTE SET MOTDEPASSE= :attr WHERE LOGIN = :login');
-					$requete->bindValue(':login',$_SESSION['Login']);
-					if($_POST['pwd'] == $_POST['pwd2'])
-					{
-						$requete->bindValue(':attr',sha1($_POST['pwd']));
-						$requete->execute();
-					}
-					else{
-						echo'<div class="alert">Erreur mot de passe</div>';
-					}
-				}
-				if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="") {
-					echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
-				}
+				connectedbar("Candidat_profil.php");
 			?>		
 		</nav>
 		<form class="form-submit border rounded" action="Candidat_profil.php" method="post">
+			<div class="hidden alert"></div>
+			<h2>Modifier le profil</h2>
 		<?php
 			$requete = $bd->prepare('SELECT * FROM COMPTE WHERE LOGIN = :login');
 			$requete->bindValue(':login',$_SESSION['Login']);
 			$requete->execute();
 			$res = $requete->fetch(PDO::FETCH_ASSOC);
+			if( isset ($_POST['pwd']) and trim($_POST['pwd'])!="" and isset ($_POST['pwd2']) and trim($_POST['pwd2'])!="") {
+				$requete = $bd->prepare('UPDATE COMPTE SET MOTDEPASSE= :attr WHERE LOGIN = :login');
+				$requete->bindValue(':login',$_SESSION['Login']);
+				if($_POST['pwd'] == $_POST['pwd2'])
+				{
+					$requete->bindValue(':attr',sha1($_POST['pwd']));
+					$requete->execute();
+				}
+				else{
+					echo'<div class="alert">Erreur mot de passe</div>';
+				}
+				}
 			echo'
-				<div class="hidden alert"></div>
-				<h2>Modifier le profil</h2>
 				<div class="form-group has-feedback">	
 					<label for="nom">Nom:'.$res['NOM'].'</label>
 					<input id="nom" class="form-control" type="text" name="Nom" placeholder="Nom">
@@ -97,18 +94,19 @@
 				F:
 				<input type="radio" name="genre" value="F">
 				</label>
-				<div class="form-group has-feedback">
-					<label for="pass">Mot de passe:</label>
-					<input id="pass" class="form-control" name="name="pwd" type="password">
-				</div>
-				<div class="form-group has-feedback">
-					<label for="pass2">Confirmer le mot de passe:</label>
-					<input id="pass2" class="form-control" name="pwd2" type="password">
-				</div>
-				<button type="submit" class="envoyer btn-block">Modifier</button>
 			';
 			?>
+			<div class="form-group has-feedback">
+				<label for="pass">Mot de passe:</label>
+				<input id="pass" class="form-control" name="pwd" type="password">
+			</div>
+			<div class="form-group has-feedback">
+				<label for="pass2">Confirmer le mot de passe:</label>
+				<input id="pass2" class="form-control" name="pwd2" type="password">
+			</div>
+			<button type="submit" class="envoyer btn-block">Modifier</button>
 		</form>
+		<script src="js/jquery.min.js"></script>
 		<script src="https://code.jquery.com/jquery.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 	</body>

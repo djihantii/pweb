@@ -24,17 +24,10 @@
 			<a href="RH_blacklister.php">Blacklister un candidat</a>
 			<a href="RH_contact_candidat.php">Contacter un candidat</a>
 			<?php
-				include('php/Connexion.class.php');
-				session_start();
-				if(isset($_POST['disconnected'])) {
-					session_destroy();
-					$_SESSION['Login'] = "";
-				}
-				$con = new Connexion;
-				$bd = $con->init();
-				if(isset($_SESSION['Login']) and trim($_SESSION['Login'])!="") {
-					echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
-				}
+				include("php/init.php");
+				init_session();
+				$bd = acces_bd();
+				connectedbar("");
 				if( isset($_POST['nomposte'])){
 					$req = $bd->prepare('SELECT COUNT(NUM_OFFRE) AS Numb FROM OFFRES');
 					$req->execute();

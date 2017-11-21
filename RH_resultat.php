@@ -26,17 +26,10 @@
 			<a href="RH_blacklister.php">Blacklister un candidat</a>
 			<a href="RH_contact_candidat.php">Contacter un candidat</a>';
 			<?php
-					include('php/Connexion.class.php');
-					session_start();
-					if(isset($_POST['disconnected'])) {
-						session_destroy();
-						$_SESSION['Login'] = "";
-					}
-					$con = new Connexion;
-					$bd = $con->init();
-					if(isset($_SESSION['Login']) and trim($_SESSION['Login'])!="") {
-						echo '<a href="Candidat_profil.php">'.$_SESSION['Nom'].' '.$_SESSION['Prenom'] .'</a><form class="form-group" action="index.php" method="post"><button class="btn btn-info btn-lg" type="submit" name="disconnected" value="True">Deconnexion</button></form>';
-					}
+				include("php/init.php");
+				init_session();
+				$bd = acces_bd();
+				connectedbar("");
 			?>
 		</nav>
 
@@ -48,27 +41,56 @@
 					<th>Prénom</th>
 					<th>Genre</th>
 					<th>E-mail</th>
+					<th>Nom du poste</th>
+					<th>Nom de l'entreprise</th>
+					<th>Description</th>
 					<th>Resultat</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
 					if(isset($_POST['recherche']) and trim($_POST['recherche'])!="" ){
-						$requete = $bd->prepare("SELECT * FROM COMPTE AND NOM LIKE '%:attr%' OR PRENOM LIKE '%:attr%' OR EMAIL LIKE '%:attr%' OR SEXE LIKE '%:attr%'");
+						$requete = $bd->prepare("SELECT * FROM COMPTE NATURAL JOIN POSTULER NATURAL JOIN OFFRES WHERE NOM LIKE '%:attr%' OR PRENOM LIKE '%:attr%' OR EMAIL LIKE '%:attr%' OR SEXE LIKE '%:attr%'");
 						$requete->bindValue(':attr',$_POST['recherche']);
 					}
 					else
 					{
-						$requete = $bd->prepare('SELECT * FROM COMPTE WHERE CANDIDAT = "Y"');
+						$requete = $bd->prepare('SELECT * FROM COMPTE NATURAL JOIN POSTULER NATURAL JOIN OFFRES WHERE CANDIDAT = "Y"');
 					}
 					$requete->execute();
 					while ($tab = $requete->fetch(PDO::FETCH_ASSOC) )
 					{
-						echo'<tr><td>' . $tab['NOM'] . '</td><td>' . $tab['PRENOM'] .'</td><td>'. $tab['SEXE'] .'</td><td>'. $tab['EMAIL'] .'</td><td>
-											<button type="button" class="btn btn-success">Accepter</button>
-											<button type="button" class="btn btn-warning">Refuser</button>
+						echo'<tr>
+							<td>' . $tab['NOM'] . '</td>
+							<td>' . $tab['PRENOM'] .'</td>
+							<td>'. $tab['SEXE'] .'</td>
+							<td>'. $tab['EMAIL'] .'</td>
+							<td>' . $tab['NOM_POSTE'] . '</td>
+							<td>'. $tab['TYPE_EMPLOI'] .
+							. $tab['DIPLOME'] .'
+							<td>
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Consulter</button>
+								<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLongTitle">Description de l\'offre</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body"><p> Lieu de Travail' $tab['LIEU_TRAVAIL'].'</p>'.$tab['MISSION'].'<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+											</div>
+										</div>
+									</div>
+								</div>
 							</td>
-							</tr>';
+							<td>
+								<button type="button" class="btn btn-success">Accepter</button>
+								<button type="button" class="btn btn-warning">Refuser</button>
+							</td>
+						</tr>';
 					}
 				?>
 			</tbody>
