@@ -19,6 +19,7 @@
 			<a href="index.php">Accueil</a>
 			<a href="RH_new_offre.php">Créer des offres</a>
 			<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
+			<a href="inscrire.php">Inscrire un candidat</a>
 			<a href="RH_recherche_candidat.php"  class="active">Rechercher les candidats</a>
 			<a href="RH_resultat.php"">Accepter / refuser un candidat sur un poste</a>
 			<a href="RH_blacklister.php">Blacklister un candidat</a>
@@ -26,7 +27,7 @@
 			<?php
 				include("php/init.php");
 				init_session();
-				$bd = acces_bd();
+				$bd=acces_bd();
 				connectedbar("");
 			?>
 		</nav>
@@ -36,7 +37,6 @@
 					<label for="recherche">Rechercher :</label>
 					<input id="recherche" type="text" name="recherche" placeholder="Recherche">
 					<button type="submit" class="btn-block">Rechercher</button>
-					';
 									
 					<?php
 						if(isset($_POST['recherche']) and trim($_POST['recherche'])!=""){
@@ -62,7 +62,7 @@
 					<tbody>
 					<?php
 						if(isset($_POST['recherche']) and trim($_POST['recherche'])!="" ){
-							$requete = $bd->prepare("SELECT * FROM COMPTE AND NOM LIKE '%:attr%' OR PRENOM LIKE '%:attr%' OR EMAIL LIKE '%:attr%' OR SEXE LIKE '%:attr%'");
+							$requete = $bd->prepare("SELECT * FROM COMPTE WHERE NOM LIKE ':attr' OR PRENOM LIKE ':attr' OR EMAIL LIKE ':attr'");
 							$requete->bindValue(':attr',$_POST['recherche']);
 						}
 						else

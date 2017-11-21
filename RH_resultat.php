@@ -21,6 +21,7 @@
 			<a href="index.php">Accueil</a>
 			<a href="RH_new_offre.php">Créer des offres</a>
 			<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
+			<a href="inscrire.php">Inscrire un candidat</a>
 			<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
 			<a href="RH_resultat.php" class="active">Accepter / refuser un candidat sur un poste</a>
 			<a href="RH_blacklister.php">Blacklister un candidat</a>
@@ -50,7 +51,7 @@
 			<tbody>
 				<?php
 					if(isset($_POST['recherche']) and trim($_POST['recherche'])!="" ){
-						$requete = $bd->prepare("SELECT * FROM COMPTE NATURAL JOIN POSTULER NATURAL LEFT JOIN OFFRES WHERE NOM LIKE '%:attr%' OR PRENOM LIKE '%:attr%' OR EMAIL LIKE '%:attr%' OR SEXE LIKE '%:attr%'");
+						$requete = $bd->prepare("SELECT * FROM COMPTE NATURAL JOIN POSTULER NATURAL LEFT JOIN OFFRES WHERE CANDIDAT = 'Y' AND NOM LIKE '%:attr%' OR PRENOM LIKE '%:attr%' OR EMAIL LIKE '%:attr%' OR SEXE LIKE '%:attr%'");
 						$requete->bindValue(':attr',$_POST['recherche']);
 					}
 					else
@@ -86,8 +87,10 @@
 								</div>
 							</td>
 							<td>
-								<button type="button" class="btn btn-success">Accepter</button>
-								<button type="button" class="btn btn-warning">Refuser</button>
+								<form class="resultat" action="RH_resultat.php" method="post">
+								<button type="submit" class="btn btn-success">Accepter</button>
+								<button type="submit" class="btn btn-warning">Refuser</button>
+								</form>
 							</td>
 						</tr>';
 					}

@@ -12,6 +12,7 @@ $(function() {
 		if(saisie == true)
 		{
 			afficheralerte('alert-success','alert-danger','Formulaire envoyé');
+			alert("Formulaire envoyé");
 		}
 		else
 		{
