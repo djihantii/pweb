@@ -1,6 +1,6 @@
 
 <?php
-	include("php/init.php");
+	include("nonpagephp/init.php");
 	init_session();
 	$bd = acces_bd();
 	if( isset($_POST['Login'])){
@@ -39,17 +39,18 @@
 						echo'
 						<a href="RH_new_offre.php">Créer des offres</a>
 						<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
-						<a href="inscrire.php">Inscrire un candidat</a>
+						<a href="inscrire.php" class="active">Inscrire un candidat</a>
 						<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
 						<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
-						<a href="RH_blacklister.php">Blacklister un candidat</a>';
+						<a href="RH_blacklister.php">Blacklister un candidat</a>
+						<a href="RH_contact_candidat.php">Contacter un candidat</a>';
 						connectedbar("");
 					}
 				}
 				else{
-					echo'<a href="consulter.php" class="active">Consulter les offres</a>
+					echo'<a href="consulter.php">Consulter les offres</a>
 					<a href="inscrire.php" class="active">S\'inscrire sur le portail</a>
-					<a href="contact.php"">Contacter les RH</a>
+					<a href="contact.php">Contacter les RH</a>
 					<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#Con">Connexion</button>
 
 					<!-- connexion candidat -->
@@ -68,7 +69,7 @@
 
 									<form class="form-signin" action="index.php" method="post">
 										<h2 class="form-signin-heading">Connexion</h2>
-										<label for="inputLoginC">Login</label>
+										<label for="inputLogin">Login</label>
 										<input type="text" id="inputLogin" class="form-control" name="Login" placeholder="Login" required="" autofocus="">
 										<label for="inputPassword">Mot de passe</label>
 										<input type="password" id="inputPassword" class="form-control" name="Password" placeholder="Mot de passe" required="">
@@ -90,7 +91,7 @@
 				}
 			?>
 		</nav>
-		<form class="form-submit border rounded" action="inscrire.php" method="post">
+		<form class="form-submit border rounded" action="" method="post">
 			<div class="hidden alert"></div>
 			<h2>Inscription</h2>
 			<div class="form-group has-feedback">

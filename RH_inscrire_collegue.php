@@ -26,7 +26,7 @@
 			<a href="RH_contact_candidat.php">Contacter un candidat</a>
 
 			<?php
-				include("php/init.php");
+				include("nonpagephp/init.php");
 				init_session();
 				$bd = acces_bd();
 				connectedbar("");

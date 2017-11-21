@@ -23,7 +23,7 @@
 			<a href="contact.php">Contacter les RH</a>
 
 			<?php
-				include("php/init.php");
+				include("nonpagephp/init.php");
 				init_session();
 				$bd = acces_bd();
 				connectedbar("Candidat_profil.php");
@@ -51,10 +51,10 @@
 					{
 						echo'
 						<tr>
-							<td>'.$tab['NOM_POSTE'].'</td>
-							<td>'.$tab['LIEU_TRAVAIL'].'</td>
-							<td>'.$tab['TYPE_EMPLOI'].'</td>
-							<td>'.$tab['DIPLOME'].'</td>
+							<td>'.htmlspecialchars($tab['NOM_POSTE'],ENT_QUOTES).'</td>
+							<td>'.htmlspecialchars($tab['LIEU_TRAVAIL'],ENT_QUOTES).'</td>
+							<td>'.htmlspecialchars($tab['TYPE_EMPLOI'],ENT_QUOTES).'</td>
+							<td>'.htmlspecialchars($tab['DIPLOME'],ENT_QUOTES).'</td>
 							<td>
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Consulter l\'offre</button>
 							<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -66,7 +66,7 @@
 											<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
-										<div class="modal-body">'.$tab['MISSION'].'<div class="modal-footer">
+										<div class="modal-body">'.htmlspecialchars($tab['MISSION'],ENT_QUOTES).'<div class="modal-footer">
 											<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
 										</div>
 									</div>

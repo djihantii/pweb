@@ -25,9 +25,9 @@
 			<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
 			<a href="RH_resultat.php" class="active">Accepter / refuser un candidat sur un poste</a>
 			<a href="RH_blacklister.php">Blacklister un candidat</a>
-			<a href="RH_contact_candidat.php">Contacter un candidat</a>';
+			<a href="RH_contact_candidat.php">Contacter un candidat</a>
 			<?php
-				include("php/init.php");
+				include("nonpagephp/init.php");
 				init_session();
 				$bd = acces_bd();
 				connectedbar("");
@@ -62,12 +62,12 @@
 					while ($tab = $requete->fetch(PDO::FETCH_ASSOC) )
 					{
 						echo'<tr>
-							<td>'.$tab['NOM'].'</td>
-							<td>'.$tab['PRENOM'].'</td>
+							<td>'.htmlspecialchars($tab['NOM'],ENT_QUOTES).'</td>
+							<td>'.htmlspecialchars($tab['PRENOM'],ENT_QUOTES).'</td>
 							<td>'.$tab['SEXE'].'</td>
-							<td>'.$tab['EMAIL'].'</td>
-							<td>'.$tab['NOM_POSTE'].'</td>
-							<td>'.$tab['LIEU_TRAVAIL'].'</td>
+							<td>'.htmlspecialchars($tab['EMAIL'],ENT_QUOTES).'</td>
+							<td>'.htmlspecialchars($tab['NOM_POSTE'],ENT_QUOTES).'</td>
+							<td>'.htmlspecialchars($tab['LIEU_TRAVAIL'],ENT_QUOTES).'</td>
 							<td>
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Consulter</button>
 								<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -79,20 +79,21 @@
 												<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
-											<div class="modal-body"><p> Lieu de Travail : '.$tab['LIEU_TRAVAIL'].'</p><p> Type d\'emploi : '.$tab['TYPE_EMPLOI'].'</p><p> Diplôme'.$tab['DIPLOME'].'</p><p> Mission: '.$tab['MISSION'].'</p><div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+											<div class="modal-body"><p> Lieu de Travail : '.htmlspecialchars($tab['LIEU_TRAVAIL'],ENT_QUOTES).'</p>
+												<p> Type d\'emploi : '.htmlspecialchars($tab['TYPE_EMPLOI'],ENT_QUOTES).'</p>
+												<p> Diplôme'.htmlspecialchars($tab['DIPLOME'],ENT_QUOTES).'</p><p> Mission: '.$tab['MISSION'].'</p>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</td>
-							<td>
-								<form class="resultat" action="RH_resultat.php" method="post">
-								<button type="submit" class="btn btn-success">Accepter</button>
-								<button type="submit" class="btn btn-warning">Refuser</button>
-								</form>
-							</td>
-						</tr>';
+								</td>
+								<td class="resultat">
+									<button type="button" class="btn btn-success">Accepter</button>
+									<button type="button" class="btn btn-warning">Refuser</button>
+								</td>
+							</tr>';
 					}
 				?>
 			</tbody>

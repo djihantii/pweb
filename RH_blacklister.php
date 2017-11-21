@@ -23,9 +23,9 @@
 			<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
 			<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
 			<a href="RH_blacklister.php" class="active">Blacklister un candidat</a>
-			<a href="RH_contact_candidat.php">Contacter un candidat</a>';
+			<a href="RH_contact_candidat.php">Contacter un candidat</a>
 			<?php
-					include("php/init.php");
+					include("nonpagephp/init.php");
 					init_session();
 					$bd = acces_bd();
 					connectedbar("");

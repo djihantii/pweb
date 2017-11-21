@@ -22,7 +22,7 @@
 				<a href="Candidat_resultat.php">Consulter les réponses</a>
 				<a href="contact.php">Contacter les RH</a>
 				<?php
-				include("php/init.php");
+				include("nonpagephp/init.php");
 				init_session();
 				$bd = acces_bd();
 				connectedbar("Candidat_profil.php");
@@ -30,7 +30,7 @@
 			</nav>
 			<div class="row">
 				<div class="col-3">
-					<form class="search" action="Candidat_postuler.php" method="post">
+					<form class="search" action="" method="post">
 						<label for="recherche">Rechercher :</label>
 						<input id="recherche" type="text" name="recherche" placeholder="Recherche">
 						<button type="submit" class="btn-block">Rechercher</button>
@@ -65,8 +65,8 @@
 							$requete->execute();
 						}
 						if(isset($_POST['recherche']) and trim($_POST['recherche'])!="" ){
-							$requete = $bd->prepare("SELECT * FROM OFFRES WHERE NUM_OFFRE LIKE '%me%'");
-							//$requete->bindValue(':attr',$_POST['recherche']);
+							$requete = $bd->prepare("SELECT * FROM OFFRES WHERE NUM_OFFRE LIKE '%:attr%'");
+							$requete->bindValue(':attr',$_POST['recherche']);
 						}
 						else
 						{
@@ -76,7 +76,10 @@
 						while ($tab = $requete->fetch(PDO::FETCH_ASSOC) )
 						{
 							echo'					
-								<tr><td>' . $tab['NOM_POSTE'] . '</td><td>' . $tab['LIEU_TRAVAIL'] .'</td><td>'. $tab['TYPE_EMPLOI'] .'</td><td>'. $tab['DIPLOME'] .'</td><td>
+								<tr><td>'.htmlspecialchars($tab['NOM_POSTE'],ENT_QUOTES).'</td>
+								<td>'.htmlspecialchars($tab['LIEU_TRAVAIL'],ENT_QUOTES).'</td>
+								<td>'.htmlspecialchars($tab['TYPE_EMPLOI'],ENT_QUOTES).'</td>
+								<td>'.htmlspecialchars($tab['DIPLOME'],ENT_QUOTES).'</td><td>
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Description</button>
 								<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 									<div class="modal-dialog" role="document">

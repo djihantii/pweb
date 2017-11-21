@@ -14,12 +14,6 @@ $(function() {
 			afficheralerte('alert-success','alert-danger','Formulaire envoyé');
 			alert("Formulaire envoyé");
 		}
-		else
-		{
-			$("form").submit(function(e){
-            	e.preventDefault(e);
-        	})
-		}
 	});
 	$('.envoyer-pwd').on('click', function(){	
 		var saisie = saisieok('.saisievide');
@@ -30,18 +24,6 @@ $(function() {
 			{
 				afficheralerte('alert-success','alert-danger','Mot de passe valide');
 			}
-			else
-			{
-				$("form").submit(function(e){
-	            	e.preventDefault(e);
-	        	});
-			}
-		}
-		else
-		{
-			$("form").submit(function(e){
-            	e.preventDefault(e);
-        	})
 		}
 	});
 });
@@ -71,6 +53,7 @@ function saisieok(elt)
 			{
 				alert("Un des champs de saisie sont vides");
 				afficheralerte('alert-danger','alert-success', 'Un des champs de saisie sont vides');
+				$(this).prop('required',true);
 			}
 			$(this).parent().addClass('has-error');
 			etat = false;

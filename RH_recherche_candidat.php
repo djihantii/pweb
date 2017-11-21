@@ -23,9 +23,9 @@
 			<a href="RH_recherche_candidat.php"  class="active">Rechercher les candidats</a>
 			<a href="RH_resultat.php"">Accepter / refuser un candidat sur un poste</a>
 			<a href="RH_blacklister.php">Blacklister un candidat</a>
-			<a href="RH_contact_candidat.php">Contacter un candidat</a>';
+			<a href="RH_contact_candidat.php">Contacter un candidat</a>
 			<?php
-				include("php/init.php");
+				include("nonpagephp/init.php");
 				init_session();
 				$bd=acces_bd();
 				connectedbar("");
@@ -73,12 +73,12 @@
 						while ($tab = $requete->fetch(PDO::FETCH_ASSOC) )
 						{
 							echo'<tr>
-									<td>' . $tab['NOM'] . '</td>
-									<td>' . $tab['PRENOM'] .'</td>
-									<td>'. $tab['SEXE'] .'</td>
-									<td>'. $tab['EMAIL'] .'</td>
+									<td>'.htmlspecialchars($tab['NOM'],ENT_QUOTES). '</td>
+									<td>'.htmlspecialchars($tab['PRENOM'],ENT_QUOTES).'</td>
+									<td>'.$tab['SEXE'].'</td>
+									<td>'.htmlspecialchars($tab['EMAIL'],ENT_QUOTES).'</td>
 									<td>
-											<button type="button" class="btn btn-primary">Proposition</button>
+										<button type="button" class="btn btn-primary">Proposition</button>
 									</td>
 								</tr>';
 						}

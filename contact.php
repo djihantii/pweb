@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -19,7 +18,7 @@
 			<a href="index.php">Accueil</a>
 
 			<?php
-				include("php/init.php");
+				include("nonpagephp/init.php");
 				init_session();
 				$bd = acces_bd();
 				if( isset($_POST['Nom'])){
@@ -35,7 +34,7 @@
 						$requete->execute();
 				}
 
-				if( isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset($_SESSION['candidat'])) {
+				if(isset ($_SESSION['Login']) and trim($_SESSION['Login'])!="" and isset($_SESSION['candidat'])) {
 					if(($_SESSION['candidat']) == true){
 					echo'<a href="consulter.php">Consulter les offres</a>
 					<a href="Candidat_profil.php">Modifier le profil</a>
@@ -77,7 +76,7 @@
 
 									<form class="form-signin" action="index.php" method="post">
 										<h2 class="form-signin-heading">Connexion</h2>
-										<label for="inputLoginC">Login</label>
+										<label for="inputLogin">Login</label>
 										<input type="text" id="inputLogin" class="form-control" name="Login" placeholder="Login" required="" autofocus="">
 										<label for="inputPassword">Mot de passe</label>
 										<input type="password" id="inputPassword" class="form-control" name="Password" placeholder="Mot de passe" required="">
@@ -99,7 +98,7 @@
 				}
 			?>
 		</nav>
-		<form class="form-submit border rounded" action="contact.php" method="post">
+		<form class="form-submit border rounded" action="" method="post">
 			<div class="hidden alert"></div>
 			<h2>Contacter les Ressources Humaines</h2>
 			<div class="form-group has-feedback">

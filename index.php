@@ -18,7 +18,7 @@
 			<a href="index.php" class="active">Accueil</a>
 
 			<?php
-				include("php/init.php");
+				include("nonpagephp/init.php");
 				init_session();
 				$bd = acces_bd();
 				$connection = false;
@@ -40,7 +40,6 @@
 								$_SESSION['Login'] = $_POST['Login'];
 								$_SESSION['Nom'] = $res['NOM'];
 								$_SESSION['Prenom'] = $res['PRENOM'];
-								$_SESSION['connecte'] = true;
 								if($res['CANDIDAT'] == 'Y')
 								{
 									$_SESSION['candidat'] = true;
@@ -69,6 +68,7 @@
 					echo'
 					<a href="RH_new_offre.php">Créer des offres</a>
 					<a href="RH_inscrire_collegue.php">Inscrire un collègue</a>
+					<a href="inscrire.php">Inscrire un candidat</a>
 					<a href="RH_recherche_candidat.php">Rechercher les candidats</a>
 					<a href="RH_resultat.php">Accepter / refuser un candidat sur un poste</a>
 					<a href="RH_blacklister.php">Blacklister un candidat</a>

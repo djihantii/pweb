@@ -23,30 +23,30 @@
 			<a href="Candidat_resultat.php">Consulter les réponses</a>
 			<a href="contact.php">Contacter les RH</a>
 			<?php
-				include("php/init.php");
+				include("nonpagephp/init.php");
 				init_session();
 				$bd = acces_bd();
-				if( isset ($_POST['Nom']) and trim($_POST['Nom'])!="") {
+				if(isset ($_POST['Nom']) and trim($_POST['Nom'])!="") {
 					$requete = $bd->prepare('UPDATE COMPTE SET NOM = :attr WHERE LOGIN = :login');
 					$requete->bindValue(':login',$_SESSION['Login']);
 					$requete->bindValue(':attr',$_POST['Nom']);
 					$requete->execute();
 					$_SESSION['Nom'] = $_POST['Nom'];
 				}
-				if( isset ($_POST['Prenom']) and trim($_POST['Prenom'])!="") {
+				if(isset ($_POST['Prenom']) and trim($_POST['Prenom'])!="") {
 					$requete = $bd->prepare('UPDATE COMPTE SET PRENOM = :attr WHERE LOGIN = :login');
 					$requete->bindValue(':login',$_SESSION['Login']);
 					$requete->bindValue(':attr',$_POST['Prenom']);
 					$requete->execute();
 					$_SESSION['Prenom'] = $_POST['Prenom'];
 				}
-				if( isset ($_POST['Email']) and trim($_POST['Email'])!="") {
+				if(isset ($_POST['Email']) and trim($_POST['Email'])!="") {
 					$requete = $bd->prepare('UPDATE COMPTE SET EMAIL = :attr WHERE LOGIN = :login');
 					$requete->bindValue(':login',$_SESSION['Login']);
 					$requete->bindValue(':attr',$_POST['Email']);
 					$requete->execute();
 				}
-				if( isset ($_POST['genre']) and trim($_POST['genre'])!="") {
+				if(isset ($_POST['genre']) and trim($_POST['genre'])!="") {
 					$requete = $bd->prepare('UPDATE COMPTE SET SEXE = :attr WHERE LOGIN = :login');
 					$requete->bindValue(':login',$_SESSION['Login']);
 					$requete->bindValue(':attr',$_POST['genre']);
@@ -55,7 +55,7 @@
 				connectedbar("Candidat_profil.php");
 			?>		
 		</nav>
-		<form class="form-submit border rounded" action="Candidat_profil.php" method="post">
+		<form class="form-submit border rounded" action="" method="post">
 			<div class="hidden alert"></div>
 			<h2>Modifier le profil</h2>
 		<?php
@@ -77,15 +77,15 @@
 				}
 			echo'
 				<div class="form-group has-feedback">	
-					<label for="nom">Nom:'.$res['NOM'].'</label>
+					<label for="nom">Nom:'.htmlspecialchars($res['NOM'],ENT_QUOTES).'</label>
 					<input id="nom" class="form-control" type="text" name="Nom" placeholder="Nom">
 				</div>
 				<div class="form-group has-feedback">
-					<label for="prenom">Prénom: '.$res['PRENOM'].'</label>
+					<label for="prenom">Prénom: '.htmlspecialchars($res['PRENOM'],ENT_QUOTES).'</label>
 					<input id="prenom" class="form-control" type="text" name="Prenom" placeholder="Prénom">
 				</div>
 				<div class="form-group has-feedback">
-					<label for="mail">E-mail: '.$res['EMAIL'].'</label>
+					<label for="mail">E-mail: '.htmlspecialchars($res['EMAIL'],ENT_QUOTES).'</label>
 					<input id="mail" class="form-control" type="text" name="Email" placeholder="E-mail">
 				</div>
 				<label>Genre: '.$res['SEXE'].'</label>
