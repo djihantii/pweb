@@ -90,8 +90,6 @@
 					<label for="recherche">Rechercher :</label>
 					<input id="recherche" type="text" name="recherche" placeholder="Recherche">
 					<button type="submit" class="btn-block">Rechercher</button>
-					';
-									
 					<?php
 						if(isset($_POST['recherche']) and trim($_POST['recherche'])!=""){
 								echo '<p class="small"> Recherche du mot-clé: '.$_POST['recherche'].'<p>';

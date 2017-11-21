@@ -32,7 +32,7 @@
 		</nav>
 		<div class="row">
 			<div class="col-3">
-				<form class="search" action="consulter.php" method="post">
+				<form class="search" action="RH_recherche_candidat.php" method="post">
 					<label for="recherche">Rechercher :</label>
 					<input id="recherche" type="text" name="recherche" placeholder="Recherche">
 					<button type="submit" class="btn-block">Rechercher</button>

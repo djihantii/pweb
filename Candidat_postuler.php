@@ -30,12 +30,10 @@
 			</nav>
 			<div class="row">
 				<div class="col-3">
-					<form class="search" action="consulter.php" method="post">
+					<form class="search" action="Candidat_postuler.php" method="post">
 						<label for="recherche">Rechercher :</label>
 						<input id="recherche" type="text" name="recherche" placeholder="Recherche">
 						<button type="submit" class="btn-block">Rechercher</button>
-						';
-										
 						<?php
 							if(isset($_POST['recherche']) and trim($_POST['recherche'])!=""){
 									echo '<p class="small"> Recherche du mot-clé: '.$_POST['recherche'].'<p>';
@@ -58,7 +56,7 @@
 							<th>Postuler</th>
 						</tr>
 					</thead>
-					<tbody>';
+					<tbody>
 					<?php
 						if(isset($_POST['postuler']) and trim($_POST['postuler'])!="" ){
 							$requete = $bd->prepare("INSERT INTO POSTULER VALUES (:log,:Num,'N')");
@@ -67,14 +65,12 @@
 							$requete->execute();
 						}
 						if(isset($_POST['recherche']) and trim($_POST['recherche'])!="" ){
-							$requete = $bd->prepare("SELECT * FROM OFFRES WHERE NUM_OFFRE LIKE '%:attr%' OR LIEU_TRAVAIL LIKE '%:attr%' OR TYPE_EMPLOI LIKE '%:attr%' OR DIPLOME LIKE '%:attr%'");
-							$requete->bindValue(':attr',$_POST['recherche']);
-							$requete->bindValue(':log',$_SESSION['Login']);
+							$requete = $bd->prepare("SELECT * FROM OFFRES WHERE NUM_OFFRE LIKE '%me%'");
+							//$requete->bindValue(':attr',$_POST['recherche']);
 						}
 						else
 						{
 							$requete = $bd->prepare('SELECT * FROM OFFRES');
-							$requete->bindValue(':log',$_SESSION['Login']);
 						}
 						$requete->execute();
 						while ($tab = $requete->fetch(PDO::FETCH_ASSOC) )

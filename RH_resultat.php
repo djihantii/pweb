@@ -50,24 +50,23 @@
 			<tbody>
 				<?php
 					if(isset($_POST['recherche']) and trim($_POST['recherche'])!="" ){
-						$requete = $bd->prepare("SELECT * FROM COMPTE NATURAL JOIN POSTULER NATURAL JOIN OFFRES WHERE NOM LIKE '%:attr%' OR PRENOM LIKE '%:attr%' OR EMAIL LIKE '%:attr%' OR SEXE LIKE '%:attr%'");
+						$requete = $bd->prepare("SELECT * FROM COMPTE NATURAL JOIN POSTULER NATURAL LEFT JOIN OFFRES WHERE NOM LIKE '%:attr%' OR PRENOM LIKE '%:attr%' OR EMAIL LIKE '%:attr%' OR SEXE LIKE '%:attr%'");
 						$requete->bindValue(':attr',$_POST['recherche']);
 					}
 					else
 					{
-						$requete = $bd->prepare('SELECT * FROM COMPTE NATURAL JOIN POSTULER NATURAL JOIN OFFRES WHERE CANDIDAT = "Y"');
+						$requete = $bd->prepare('SELECT * FROM COMPTE NATURAL JOIN POSTULER NATURAL LEFT JOIN OFFRES WHERE CANDIDAT = "Y"');
 					}
 					$requete->execute();
 					while ($tab = $requete->fetch(PDO::FETCH_ASSOC) )
 					{
 						echo'<tr>
-							<td>' . $tab['NOM'] . '</td>
-							<td>' . $tab['PRENOM'] .'</td>
-							<td>'. $tab['SEXE'] .'</td>
-							<td>'. $tab['EMAIL'] .'</td>
-							<td>' . $tab['NOM_POSTE'] . '</td>
-							<td>'. $tab['TYPE_EMPLOI'] .
-							. $tab['DIPLOME'] .'
+							<td>'.$tab['NOM'].'</td>
+							<td>'.$tab['PRENOM'].'</td>
+							<td>'.$tab['SEXE'].'</td>
+							<td>'.$tab['EMAIL'].'</td>
+							<td>'.$tab['NOM_POSTE'].'</td>
+							<td>'.$tab['LIEU_TRAVAIL'].'</td>
 							<td>
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Consulter</button>
 								<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -79,7 +78,7 @@
 												<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
-											<div class="modal-body"><p> Lieu de Travail' $tab['LIEU_TRAVAIL'].'</p>'.$tab['MISSION'].'<div class="modal-footer">
+											<div class="modal-body"><p> Lieu de Travail : '.$tab['LIEU_TRAVAIL'].'</p><p> Type d\'emploi : '.$tab['TYPE_EMPLOI'].'</p><p> Diplôme'.$tab['DIPLOME'].'</p><p> Mission: '.$tab['MISSION'].'</p><div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
 											</div>
 										</div>
